@@ -23,7 +23,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <!--Third party libs-->
-    <vavr.version>1.0.0-alpha-4</vavr.version>
     <jsoup.version>1.15.3</jsoup.version>
   </properties>
 
@@ -33,12 +32,6 @@
   </modules>
 
   <dependencies>
-
-    <dependency>
-      <groupId>io.vavr</groupId>
-      <artifactId>vavr</artifactId>
-      <version>${vavr.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.jsoup</groupId>
