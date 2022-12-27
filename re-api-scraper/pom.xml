@@ -27,8 +27,7 @@
   </properties>
 
   <modules>
-    <module>re-api-scraper-crawler</module>
-    <module>re-api-scraper-character-scraper</module>
+    <module>re-api-scraper-wiki</module>
   </modules>
 
   <dependencies>

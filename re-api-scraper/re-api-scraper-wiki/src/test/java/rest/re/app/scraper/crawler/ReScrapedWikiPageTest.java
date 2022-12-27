@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
 class ReScrapedWikiPageTest {
 
     @Test
-    void scraperShouldScrapeAPageWithTitleResidentEvilGames(){
+    void gameListPageScraperShouldScrapeAPageWithTitleResidentEvilGames(){
         ReWikiScrapable gameListPage = ReScrapedWikiPage.of("wiki/Resident_Evil_games#Major_releases");
         Single<String> titleString = gameListPage.scrape()
                 .map(doc-> Objects.requireNonNull(doc.getElementsByClass("page-header__title").first().text()));
@@ -25,7 +25,7 @@ class ReScrapedWikiPageTest {
     }
 
     @Test
-    void scraperShouldReturnAnHTMLContainingLinksToAllGames(){
+    void gameListPageScraperShouldReturnAnHTMLContainingLinksToAllGames(){
         ReWikiScrapable gameListPage = ReScrapedWikiPage.of("wiki/Resident_Evil_games#Major_releases");
         Single<List<String>> listSingle =  gameListPage.scrape()
                 .map(doc-> doc.getElementsByClass("image link-internal"))
