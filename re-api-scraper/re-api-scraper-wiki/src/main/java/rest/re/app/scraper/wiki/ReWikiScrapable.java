@@ -1,4 +1,4 @@
-package rest.re.app.scraper.crawler;
+package rest.re.app.scraper.wiki;
 
 import io.reactivex.rxjava3.core.Single;
 import org.jsoup.nodes.Document;

@@ -7,8 +7,8 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>rest.re.app.scraper.wiki</groupId>
-  <artifactId>re-api-scraper-wiki</artifactId>
+  <groupId>rest.re.app.scraper.converter</groupId>
+  <artifactId>re-api-scraper-converter</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -39,6 +39,12 @@
     <!-- End of test dependencies -->
 
     <dependency>
+      <groupId>rest.re.app.scraper.wiki</groupId>
+      <artifactId>re-api-scraper-wiki</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.6</version>
@@ -49,6 +55,26 @@
       <artifactId>rxjava</artifactId>
       <version>${rxjava.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.13.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.javatuples</groupId>
+      <artifactId>javatuples</artifactId>
+      <version>${javatuples.version}</version>
+    </dependency>
+
+
 
   </dependencies>
 

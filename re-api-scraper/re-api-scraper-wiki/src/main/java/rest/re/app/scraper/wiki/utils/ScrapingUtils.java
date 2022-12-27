@@ -1,4 +1,4 @@
-package rest.re.app.scraper.crawler.utils;
+package rest.re.app.scraper.wiki.utils;
 
 
 import java.util.Arrays;

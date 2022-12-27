@@ -28,6 +28,7 @@
 
   <modules>
     <module>re-api-scraper-wiki</module>
+    <module>re-api-scraper-conversor</module>
   </modules>
 
   <dependencies>
