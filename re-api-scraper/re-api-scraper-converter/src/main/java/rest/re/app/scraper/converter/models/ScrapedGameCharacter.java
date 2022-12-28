@@ -6,15 +6,30 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
+/**
+ * Scraped Game Character Schema
+ * This is a serializable class that will represent the Scraped HTML content of a character.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
 @Accessors(chain = true)
-public class GameCharacter {
+@ToString
+public class ScrapedGameCharacter {
+
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("localisation")
+    private String localization;
+
+    @JsonProperty("description")
+    private String description;
 
     @JsonProperty("dateOfBirth")
     private String dateOfBirth;
