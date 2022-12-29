@@ -16,6 +16,12 @@ public class ListGameUrlFetchingStepImpl implements ExecutableFlowStep<ListGameU
     private static final Logger logger = LoggerFactory.getLogger(ListGameUrlFetchingStepImpl.class);
 
 
+    /**
+     * Takes an input containing a link URL path for a WIKI games page and returns an output step containing a
+     * list of URLs that lead to each game.
+     * @param input The input containing the RE WIKI URL game page.
+     * @return The output containing a list of WIKI URL game pages.
+     */
     @Override
     public Single<ListGameUrlFetchingStepOutput> execute(ListGameUrlFetchingStepInput input) {
 
