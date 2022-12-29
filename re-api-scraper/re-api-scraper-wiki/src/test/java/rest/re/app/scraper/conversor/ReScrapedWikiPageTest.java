@@ -1,10 +1,12 @@
-package rest.re.app.scraper.crawler;
+package rest.re.app.scraper.conversor;
 
 
 import io.reactivex.rxjava3.core.Single;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import rest.re.app.scraper.wiki.ReScrapedWikiPage;
+import rest.re.app.scraper.wiki.ReWikiScrapable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,7 @@ class ReScrapedWikiPageTest {
 
     @Test
     void gameListPageScraperShouldScrapeAPageWithTitleResidentEvilGames(){
-        ReWikiScrapable gameListPage = ReScrapedWikiPage.of("wiki/Resident_Evil_games#Major_releases");
+        rest.re.app.scraper.wiki.ReWikiScrapable gameListPage = ReScrapedWikiPage.of("wiki/Resident_Evil_games#Major_releases");
         Single<String> titleString = gameListPage.scrape()
                 .map(doc-> Objects.requireNonNull(doc.getElementsByClass("page-header__title").first().text()));
 
@@ -26,7 +28,7 @@ class ReScrapedWikiPageTest {
 
     @Test
     void gameListPageScraperShouldReturnAnHTMLContainingLinksToAllGames(){
-        ReWikiScrapable gameListPage = ReScrapedWikiPage.of("wiki/Resident_Evil_games#Major_releases");
+        rest.re.app.scraper.wiki.ReWikiScrapable gameListPage = ReScrapedWikiPage.of("wiki/Resident_Evil_games#Major_releases");
         Single<List<String>> listSingle =  gameListPage.scrape()
                 .map(doc-> doc.getElementsByClass("image link-internal"))
                 .map(elements -> elements.stream().map(element->element.attr("href")).collect(

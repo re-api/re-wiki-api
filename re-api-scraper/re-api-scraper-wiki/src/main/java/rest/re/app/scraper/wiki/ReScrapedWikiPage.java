@@ -1,10 +1,10 @@
-package rest.re.app.scraper.crawler;
+package rest.re.app.scraper.wiki;
 
 import io.reactivex.rxjava3.core.Single;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import rest.re.app.scraper.crawler.utils.ScrapingUtils;
+import rest.re.app.scraper.wiki.utils.ScrapingUtils;
 
 import java.util.Optional;
 
