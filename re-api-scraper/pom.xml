@@ -23,12 +23,13 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <!--Third party libs-->
-    <jsoup.version>1.15.3</jsoup.version>
+
   </properties>
 
   <modules>
     <module>re-api-scraper-wiki</module>
     <module>re-api-scraper-converter</module>
+    <module>re-api-scraper-flow-steps</module>
   </modules>
 
   <dependencies>
