@@ -6,7 +6,7 @@
 
   <parent>
     <groupId>rest.re.app.scraper.flow.steps.listgameurlfetchingstep</groupId>
-    <artifactId>list-game-url-fetching-step-parent</artifactId>
+    <artifactId>scraper-games-url-fetching-step-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
@@ -34,13 +34,13 @@
 
     <dependency>
       <groupId>flow.steps.listgameurlfetchingstep.api</groupId>
-      <artifactId>list-game-url-fetching-step-api</artifactId>
+      <artifactId>scraper-games-url-fetching-step-api</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>flow.steps.execurableflowstep</groupId>
-      <artifactId>executable-flow-step</artifactId>
+      <artifactId>scraper-executable-flow-step</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
