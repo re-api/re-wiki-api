@@ -4,14 +4,19 @@ import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepInput;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput;
 import flow.steps.execurableflowstep.ExecutableFlowStep;
 import io.reactivex.rxjava3.core.Single;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rest.re.app.scraper.converter.Document2GameCharacterConverter;
+import rest.re.app.scraper.converter.models.ScrapedGameCharacter;
 import rest.re.app.scraper.wiki.ReScrapedWikiPage;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class ScraperCharactersFetchingStepImpl implements ExecutableFlowStep<ScraperCharactersFetchingStepInput,
@@ -33,41 +38,48 @@ public class ScraperCharactersFetchingStepImpl implements ExecutableFlowStep<Scr
 
         return Single.just(input.getGamesUrlPath())
                 // Firstly, pull the list of characters FOR EACH Game URL path
-                .map(listOfGamesPath->listOfGamesPath
-                        .stream()
-                        .map(gameWikiUrlPath->ReScrapedWikiPage.of(gameWikiUrlPath)
-                                        .scrape()
-                                        .map(document -> document.getElementsByClass("article-table"))
-                                        .map(elements -> elements.select("tr td:eq(0)"))// <- this selects only characters, not voice actors.
-                                        .map(articleTable->articleTable.select("a"))
-                                        .map(href->href.stream().map(l->l.attr("href")))
-                                        .map(foo->foo.collect(Collectors.toList()))
-                                            .blockingGet()
-                            )
-                )
-                // Secondly, flatmap the list into one big list of character wiki url
-                .map(listOfListOfCharactersWikiUrl->listOfListOfCharactersWikiUrl
-                        .flatMap(Collection::stream)
-                )
-                //Thirdly, remove duplicates urls:
-                .map(listOfCharactersWikiUrl->new HashSet<>(listOfCharactersWikiUrl.collect(Collectors.toList())))
-                // Fourthly, get an HTML document of each character wiki url page from the set.
-                .map(setOfCharactersWikiUrl->setOfCharactersWikiUrl.stream()
-                        .map(characterWikiUrl->ReScrapedWikiPage.of(characterWikiUrl).scrape().blockingGet())
-                )
-                // Fifthly, for each document in the stream, convert it into a ScrapedGameCharacter object.
-                .map(lisOfCharacterHTMLDocument->lisOfCharacterHTMLDocument
-                        .map(characterHTMLDocument-> new Document2GameCharacterConverter()
-                                .convert(characterHTMLDocument)
-                        )
-                )
+                .map(this::pullListOfCharactersForEachGameUrl)
+                //Secondly, remove duplicates from list, since the same character may be present in more than 1 game.
+                .map(HashSet::new)
+                // Thirdly, get an HTML document of each character wiki url page from the set.
+                .map(this::retrieveAListOfHTMLDocumentForEachWikiUrlPath)
+                // Fourthly, for each document in the stream, convert it into a ScrapedGameCharacter object.
+                .map(this::convertEachDocumentFromListIntoScrapedGameCharacter)
                 // Convert stream back to list
                 .map(scrapedGameCharacterStream -> scrapedGameCharacterStream.collect(Collectors.toList()))
                 // Finally fill out the flow step output
                 .map(listOfScrapedGameCharacters-> {
                     logger.debug("List of ScrapedGameCharacters: {}", listOfScrapedGameCharacters);
+
                     return new ScraperCharactersFetchingStepOutput()
                             .setListOfScrapedGameCharacters(listOfScrapedGameCharacters);
                 });
+    }
+
+    private List<String> pullListOfCharactersForEachGameUrl(List<String> listOfGamesUrlPath){
+        List<String> charactersWikiUrlPath = new ArrayList<>();
+
+        listOfGamesUrlPath.forEach(gameWikiUrlPath->ReScrapedWikiPage.of(gameWikiUrlPath)
+                    .scrape()
+                    .map(document -> document.getElementsByClass("article-table"))
+                    .map(elements -> elements.select("tr td:eq(0)"))// <- this selects only characters, not voice actors.
+                    .map(articleTable->articleTable.select("a"))
+                    .map(href->href.stream().map(l->l.attr("href"))
+                            .collect(Collectors.toList()))
+                    .subscribe(charactersWikiUrlPath::addAll));
+        return charactersWikiUrlPath;
+    }
+
+    private List<Document> retrieveAListOfHTMLDocumentForEachWikiUrlPath(Set<String> nonDuplicateCharacterWikiUrlPath){
+        List<Document> documentList = new ArrayList<>();
+        nonDuplicateCharacterWikiUrlPath.forEach(characterWikiUrl -> ReScrapedWikiPage
+                .of(characterWikiUrl).scrape().subscribe(documentList::add));
+        return documentList;
+    }
+
+    private Stream<ScrapedGameCharacter> convertEachDocumentFromListIntoScrapedGameCharacter(
+            List<Document> lisOfCharacterHTMLDocument){
+        return lisOfCharacterHTMLDocument.stream()
+                .map(characterHTMLDocument-> new Document2GameCharacterConverter().convert(characterHTMLDocument));
     }
 }
