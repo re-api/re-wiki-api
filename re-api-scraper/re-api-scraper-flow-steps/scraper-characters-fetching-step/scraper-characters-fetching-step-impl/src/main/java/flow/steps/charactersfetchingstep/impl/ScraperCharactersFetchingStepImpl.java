@@ -4,6 +4,8 @@ import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepInput;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput;
 import flow.steps.execurableflowstep.ExecutableFlowStep;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +61,7 @@ public class ScraperCharactersFetchingStepImpl implements ExecutableFlowStep<Scr
     private List<String> pullListOfCharactersForEachGameUrl(List<String> listOfGamesUrlPath){
         List<String> charactersWikiUrlPath = new ArrayList<>();
 
-        listOfGamesUrlPath.forEach(gameWikiUrlPath->ReScrapedWikiPage.of(gameWikiUrlPath)
+        Disposable disposable = listOfGamesUrlPath.forEach(gameWikiUrlPath->ReScrapedWikiPage.of(gameWikiUrlPath)
                     .scrape()
                     .map(document -> document.getElementsByClass("article-table"))
                     .map(elements -> elements.select("tr td:eq(0)"))// <- this selects only characters, not voice actors.
@@ -67,13 +69,18 @@ public class ScraperCharactersFetchingStepImpl implements ExecutableFlowStep<Scr
                     .map(href->href.stream().map(l->l.attr("href"))
                             .collect(Collectors.toList()))
                     .subscribe(charactersWikiUrlPath::addAll));
+
+        disposable.dispose();
+
         return charactersWikiUrlPath;
     }
 
     private List<Document> retrieveAListOfHTMLDocumentForEachWikiUrlPath(Set<String> nonDuplicateCharacterWikiUrlPath){
         List<Document> documentList = new ArrayList<>();
-        nonDuplicateCharacterWikiUrlPath.forEach(characterWikiUrl -> ReScrapedWikiPage
+        Disposable disposable = nonDuplicateCharacterWikiUrlPath.forEach(characterWikiUrl -> ReScrapedWikiPage
                 .of(characterWikiUrl).scrape().subscribe(documentList::add));
+
+        disposable.dispose();
         return documentList;
     }
 
