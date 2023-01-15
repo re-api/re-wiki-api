@@ -1,4 +1,4 @@
-package rest.re.app.scraper.converter.models;
+package common.lib.models.serializable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Accessors(chain = true)
 @ToString
-public class ScrapedGameCharacter {
+public class GameCharacter {
 
     @JsonProperty("name")
     private String name;

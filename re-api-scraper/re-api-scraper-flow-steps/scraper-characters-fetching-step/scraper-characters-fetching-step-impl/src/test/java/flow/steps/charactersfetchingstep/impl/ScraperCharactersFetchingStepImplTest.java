@@ -1,13 +1,14 @@
 package flow.steps.charactersfetchingstep.impl;
 
+import common.lib.models.serializable.GameCharacter;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepInput;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput;
 import io.reactivex.rxjava3.core.Single;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import rest.re.app.scraper.converter.models.ScrapedGameCharacter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 class ScraperCharactersFetchingStepImplTest {
@@ -22,12 +23,12 @@ class ScraperCharactersFetchingStepImplTest {
         );
 
         // And one of the expected characters is:
-        ScrapedGameCharacter leon = new ScrapedGameCharacter()
+        GameCharacter leon = new GameCharacter()
                 .setName("Leon Scott Kennedy")
                 .setDescription("Leon Scott Kennedy is an American of Italian descent currently employed as a federal agent by the Division of Security Operations (D.S.O.), a counter-terrorism agency with direct Presidential oversight. Kennedy is a known survivor of the 1998 Raccoon City Destruction Incident, then as a police officer. Following his escape, he was offered a job in a US.STRATCOM team devoted to anti-B.O.W. combat, and served it until 2011 in repeated operations around the world.")
                 .setDateOfBirth("1977")
                 .setRace("Caucasian/American")
-                .setOccupation("Police Officer (1998) US-STRATCOM Agent (1998–2011) DSO Agent (2011–)")
+                .setOccupation(Arrays.asList("Police Officer (1998)", "US-STRATCOM Agent (1998–2011)", "DSO Agent (2011–)"))
                 .setStatus("Alive")
                 .setSex("Male")
                 .setBloodType("A")
@@ -37,13 +38,13 @@ class ScraperCharactersFetchingStepImplTest {
                 .setLastAppearance("Resident Evil 4 (2023)");
 
         // And another expected character is:
-        ScrapedGameCharacter nikolai = new ScrapedGameCharacter()
+        GameCharacter nikolai = new GameCharacter()
                 .setName("Nikolai Zinoviev Николай Зиновьев")
                 .setLocalization("Nicholai Ginovaef")
                 .setDescription("Nikolai Zinoviev (ニコライ・ジノビェフ, Nikorai Jinobyefu?, Russian: Николай Зиновьев), codenamed \"Silver Wolf\", is a Soviet Army veteran who served in Umbrella's paramilitary as a Sergeant in the UBCS as well as a Monitor. He and the USS commando, HUNK were considered to be \"rivals\", and he was a close friend of Col. Sergei Vladimir, of whom he may have served with in the Soviet Army.")
                 .setPlaceOfBirth("Moscow, Russian SFSR, USSR")
                 .setRace("Caucasian/Russian")
-                .setOccupation("UBCS Sergeant/Monitor")
+                .setOccupation(Collections.singletonList("UBCS Sergeant/Monitor"))
                 .setStatus("Unknown")
                 .setSex("Male")
                 .setBloodType("A")
@@ -59,7 +60,7 @@ class ScraperCharactersFetchingStepImplTest {
         // When the flow step is executed:
         Single<ScraperCharactersFetchingStepOutput> singleOutput = new ScraperCharactersFetchingStepImpl().execute(input);
 
-        List<ScrapedGameCharacter> listOfScrapedGameCharacters = singleOutput.test().values().get(0)
+        List<GameCharacter> listOfScrapedGameCharacters = singleOutput.test().values().get(0)
                 .getListOfScrapedGameCharacters();
 
         Assertions.assertTrue(listOfScrapedGameCharacters.stream()

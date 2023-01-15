@@ -1,13 +1,14 @@
 package flow.steps.charactersfetchingstep.api;
 
+import common.lib.models.serializable.GameCharacter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import rest.re.app.scraper.converter.models.ScrapedGameCharacter;
 
 import java.util.List;
+
 
 @Getter
 @Setter
@@ -16,5 +17,5 @@ import java.util.List;
 @Accessors(chain = true)
 public class ScraperCharactersFetchingStepOutput {
 
-    List<ScrapedGameCharacter> listOfScrapedGameCharacters;
+    List<GameCharacter> listOfScrapedGameCharacters;
 }
