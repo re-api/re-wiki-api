@@ -9,6 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * Scraped Game Character Schema
  * This is a serializable class that will represent the Scraped HTML content of a character.
@@ -47,7 +49,7 @@ public class ScrapedGameCharacter {
     private String race;
 
     @JsonProperty("occupation")
-    private String occupation;
+    private List<String> occupation;
 
     @JsonProperty("status")
     private String status;

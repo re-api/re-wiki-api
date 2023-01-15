@@ -8,8 +8,10 @@ import rest.re.app.scraper.converter.processables.PortableInfoBoxProcessable;
 import rest.re.app.scraper.converter.utils.CharacterConverterUtils;
 
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Converts a Document into a ScrapedGameCharacter object implementing the Convertable interface.
@@ -122,7 +124,10 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      */
     @Override
     public Pair<Document, ScrapedGameCharacter> processOccupation(final Pair<Document, ScrapedGameCharacter> tuple) {
-        return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setOccupation, "occupation");
+        return PortableInfoBoxProcessable.processInfoBox(tuple, occupation-> {
+            // Turn the string into a list of strings.
+            tuple.getValue1().setOccupation(Arrays.stream(occupation.split(",")).collect(Collectors.toList()));
+        }, "occupation");
     }
 
     /**
@@ -162,7 +167,9 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      */
     @Override
     public Pair<Document, ScrapedGameCharacter> processHeight(final Pair<Document, ScrapedGameCharacter> tuple) {
-        return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setHeight, "height");
+        return PortableInfoBoxProcessable.processInfoBox(tuple, height->{
+            tuple.getValue1().setHeight(height.replaceAll(",", " "));
+        }, "height");
     }
 
     /**
@@ -172,7 +179,9 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      */
     @Override
     public Pair<Document, ScrapedGameCharacter> processBodyMass(final Pair<Document, ScrapedGameCharacter> tuple) {
-        return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setBodyMass, "mass");
+        return PortableInfoBoxProcessable.processInfoBox(tuple, bodyMass->{
+            tuple.getValue1().setBodyMass(bodyMass.replaceAll(",", " "));
+        }, "mass");
     }
 
     /**

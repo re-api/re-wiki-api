@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import rest.re.app.scraper.converter.models.ScrapedGameCharacter;
 import rest.re.app.scraper.wiki.ReScrapedWikiPage;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 class Document2ScrapedGameCharacterConvertibleTest {
 
     @Test
@@ -20,7 +23,7 @@ class Document2ScrapedGameCharacterConvertibleTest {
                 .setDescription("Leon Scott Kennedy is an American of Italian descent currently employed as a federal agent by the Division of Security Operations (D.S.O.), a counter-terrorism agency with direct Presidential oversight. Kennedy is a known survivor of the 1998 Raccoon City Destruction Incident, then as a police officer. Following his escape, he was offered a job in a US.STRATCOM team devoted to anti-B.O.W. combat, and served it until 2011 in repeated operations around the world.")
                 .setDateOfBirth("1977")
                 .setRace("Caucasian/American")
-                .setOccupation("Police Officer (1998) US-STRATCOM Agent (1998–2011) DSO Agent (2011–)")
+                .setOccupation(Arrays.asList("Police Officer (1998)", "US-STRATCOM Agent (1998–2011)", "DSO Agent (2011–)"))
                 .setStatus("Alive")
                 .setSex("Male")
                 .setBloodType("A")
@@ -49,7 +52,7 @@ class Document2ScrapedGameCharacterConvertibleTest {
                 .setDateOfDeath("24 July 1998")
                 .setDateOfBirth("1957")
                 .setRace("Caucasian/American")
-                .setOccupation("S.T.A.R.S. Bravo Team Captain")
+                .setOccupation(Collections.singletonList("S.T.A.R.S. Bravo Team Captain"))
                 .setStatus("Deceased")
                 .setSex("Male")
                 .setBloodType("O")
@@ -78,7 +81,7 @@ class Document2ScrapedGameCharacterConvertibleTest {
                 .setDescription("Nikolai Zinoviev (ニコライ・ジノビェフ, Nikorai Jinobyefu?, Russian: Николай Зиновьев), codenamed \"Silver Wolf\", is a Soviet Army veteran who served in Umbrella's paramilitary as a Sergeant in the UBCS as well as a Monitor. He and the USS commando, HUNK were considered to be \"rivals\", and he was a close friend of Col. Sergei Vladimir, of whom he may have served with in the Soviet Army.")
                 .setPlaceOfBirth("Moscow, Russian SFSR, USSR")
                 .setRace("Caucasian/Russian")
-                .setOccupation("UBCS Sergeant/Monitor")
+                .setOccupation(Collections.singletonList("UBCS Sergeant/Monitor"))
                 .setStatus("Unknown")
                 .setSex("Male")
                 .setBloodType("A")

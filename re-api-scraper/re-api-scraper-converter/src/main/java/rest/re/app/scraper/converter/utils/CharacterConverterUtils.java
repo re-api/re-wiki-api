@@ -1,11 +1,13 @@
 package rest.re.app.scraper.converter.utils;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.jsoup.nodes.Element;
 
@@ -30,7 +32,17 @@ public class CharacterConverterUtils {
                                     .map(s->el.text().toLowerCase().contains(s))
                                     .reduce(false, (acc, item)->  item || acc))
                             .map(Element::nextElementSibling)
-                            .map(element -> element != null ? element.text() : null)
+                            .map(element -> {
+                                return Optional.ofNullable(element)
+                                        .map(e->e.html().replaceAll("</?br>", ","))
+                                        .map(Jsoup::parse)
+                                        .map(Document::text)
+                                        .orElse(null);
+                                // if br> found in the element, split it!
+
+
+
+                            })
                             .map(CharacterConverterUtils::removeSourceReferences)
                             .collect(Collectors.toList());
     }
