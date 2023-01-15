@@ -3,6 +3,7 @@ package rest.re.app.scraper.converter;
 import common.lib.models.serializable.GameCharacter;
 import org.javatuples.Pair;
 import org.jsoup.nodes.Document;
+import rest.re.app.scraper.converter.parsers.HeightParser;
 import rest.re.app.scraper.converter.processables.CharacterPortableInfoBoxProcessable;
 import rest.re.app.scraper.converter.processables.PortableInfoBoxProcessable;
 import rest.re.app.scraper.converter.utils.CharacterConverterUtils;
@@ -167,7 +168,9 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
     @Override
     public Pair<Document, GameCharacter> processHeight(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, height->
-                tuple.getValue1().setHeight(height.replace(",", " ")), "height");
+                tuple.getValue1()
+                        .setHeight(new HeightParser().parse(height)),
+                "height");
     }
 
     /**

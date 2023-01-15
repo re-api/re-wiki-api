@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Single;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import rest.re.app.scraper.converter.parsers.HeightParser;
 import rest.re.app.scraper.wiki.ReScrapedWikiPage;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ class Document2GameCharacterConvertibleTest {
                 .setStatus("Alive")
                 .setSex("Male")
                 .setBloodType("A")
-                .setHeight("178 cm (5 ft 10 in) 180 cm (5 ft 11 in)")
+                .setHeight(new HeightParser().parse("178 cm"))
                 .setBodyMass("70.2 kg (155 lb) 75 kg (165 lb)")
                 .setFirstAppearance("Resident Evil 2 (1998)")
                 .setLastAppearance("Resident Evil 4 (2023)");
@@ -56,7 +57,7 @@ class Document2GameCharacterConvertibleTest {
                 .setStatus("Deceased")
                 .setSex("Male")
                 .setBloodType("O")
-                .setHeight("190 cm (6 ft 3 in)")
+                .setHeight(new HeightParser().parse("190 cm"))
                 .setBodyMass("83 kg (183 lb)")
                 .setFirstAppearance("Resident Evil (1996)")
                 .setLastAppearance("Resident Evil 0");
@@ -85,7 +86,7 @@ class Document2GameCharacterConvertibleTest {
                 .setStatus("Unknown")
                 .setSex("Male")
                 .setBloodType("A")
-                .setHeight("187 cm (6 ft 2 in)")
+                .setHeight(new HeightParser().parse("187 cm"))
                 .setBodyMass("102 kg (225 lb)")
                 .setFirstAppearance("Resident Evil 3: Nemesis")
                 .setLastAppearance("Resident Evil: Resistance");

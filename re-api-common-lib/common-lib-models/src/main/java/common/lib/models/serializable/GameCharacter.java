@@ -61,7 +61,7 @@ public class GameCharacter {
     private String bloodType;
 
     @JsonProperty("height")
-    private String height;
+    private Height height;
 
     @JsonProperty("bodyMass")
     private String bodyMass;

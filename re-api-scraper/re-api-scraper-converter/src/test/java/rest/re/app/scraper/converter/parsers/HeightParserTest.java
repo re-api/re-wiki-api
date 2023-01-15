@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 
-class BodyMassParserTest {
+class HeightParserTest {
 
 
 
@@ -21,7 +21,9 @@ class BodyMassParserTest {
             "187cm(6 ft 2 in)",
             "187cm(6ft2in)",
             "187 cm 6 ft 2 in",
-            "187cm6ft2in"
+            "187cm6ft2in",
+            "187 cm, (6 ft 2 in)",
+            "187 cm,(6 ft 2 in)"
     })
     void shouldSuccessfullyParseStringIfFormatIsCorrect(String s){
         // All string parameters above should be parsed into
