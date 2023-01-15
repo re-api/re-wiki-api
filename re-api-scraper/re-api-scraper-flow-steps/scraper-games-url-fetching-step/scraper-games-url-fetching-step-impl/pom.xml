@@ -39,8 +39,8 @@
     </dependency>
 
     <dependency>
-      <groupId>flow.steps.execurableflowstep</groupId>
-      <artifactId>scraper-executable-flow-step</artifactId>
+      <groupId>common.lib.executableflowsteps</groupId>
+      <artifactId>common-lib-executable-flow-steps</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
