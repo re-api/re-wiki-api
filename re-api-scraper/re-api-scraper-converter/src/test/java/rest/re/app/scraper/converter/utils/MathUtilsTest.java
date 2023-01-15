@@ -21,4 +21,18 @@ class MathUtilsTest {
         );
     }
 
+    @Test
+    void shouldBe1Point25Feet(){
+        // Given
+        final Double inches = 15.;
+
+        // When
+        final Double result = MathUtils.convertInchToFeet(inches);
+
+        //Then
+        Assertions.assertEquals(
+                MathUtils.formatDoubleTo2DecimalPlace(1.25), MathUtils.formatDoubleTo2DecimalPlace(result)
+        );
+    }
+
 }

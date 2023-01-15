@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 public class MathUtils {
 
     private static final Double CENTIMETER_TO_FEET_RATE = 0.0328084;
+    private static final Double INCH_TO_FEET_RATE = 0.083;
 
     private MathUtils(){
 
@@ -15,7 +16,20 @@ public class MathUtils {
     }
 
     public static String formatDoubleTo2DecimalPlace(Double d){
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("0.00");
         return df.format(d);
+    }
+
+    public static String formatToInteger(Double d){
+        DecimalFormat df = new DecimalFormat("0");
+        return df.format(d);
+    }
+
+    public static Double convertFeetToCentimeter(Double feet) {
+        return feet / CENTIMETER_TO_FEET_RATE;
+    }
+
+    public static Double convertInchToFeet(Double inch){
+        return inch * INCH_TO_FEET_RATE;
     }
 }

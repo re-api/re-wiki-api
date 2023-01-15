@@ -35,4 +35,20 @@ class HeightParserTest {
 
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "(6 ft 2 in)",
+            "6 ft 2 in",
+            "6 ft 2",
+            "6 ft2",
+            "6ft2",
+            "6ft2 ",
+            " 6ft2",
+            " 6ft2 ",
+
+    })
+    void shouldBaseCentimeterOnFeetIfCentimeterIsNotProvided(final String feet){
+        Assertions.assertEquals(new Height().setCentimeters("188").setFeet("6.17"), new HeightParser().parse(feet));
+    }
+
 }
