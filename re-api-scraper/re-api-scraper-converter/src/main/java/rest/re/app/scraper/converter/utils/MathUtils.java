@@ -6,6 +6,7 @@ public class MathUtils {
 
     private static final Double CENTIMETER_TO_FEET_RATE = 0.0328084;
     private static final Double INCH_TO_FEET_RATE = 0.083;
+    private static final Double KILOGRAM_TO_POUND_RATE = 2.20462;
 
     private MathUtils(){
 
@@ -16,7 +17,7 @@ public class MathUtils {
     }
 
     public static String formatDoubleTo2DecimalPlace(Double d){
-        DecimalFormat df = new DecimalFormat("0.00");
+        DecimalFormat df = new DecimalFormat("0.##");
         return df.format(d);
     }
 
@@ -31,5 +32,13 @@ public class MathUtils {
 
     public static Double convertInchToFeet(Double inch){
         return inch * INCH_TO_FEET_RATE;
+    }
+
+    public static Double convertKilogramToPound(Double kilogram){
+        return kilogram * KILOGRAM_TO_POUND_RATE;
+    }
+
+    public static Double convertPoundToKilogram(Double pound){
+        return pound / KILOGRAM_TO_POUND_RATE;
     }
 }

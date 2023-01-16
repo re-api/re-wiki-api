@@ -3,6 +3,7 @@ package rest.re.app.scraper.converter;
 import common.lib.models.serializable.GameCharacter;
 import org.javatuples.Pair;
 import org.jsoup.nodes.Document;
+import rest.re.app.scraper.converter.parsers.BodyMassParser;
 import rest.re.app.scraper.converter.parsers.HeightParser;
 import rest.re.app.scraper.converter.processables.CharacterPortableInfoBoxProcessable;
 import rest.re.app.scraper.converter.processables.PortableInfoBoxProcessable;
@@ -181,7 +182,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
     @Override
     public Pair<Document, GameCharacter> processBodyMass(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, bodyMass->
-                tuple.getValue1().setBodyMass(bodyMass.replace(",", " ")),
+                tuple.getValue1().setBodyMass(new BodyMassParser().parse(bodyMass)),
                 "mass");
     }
 

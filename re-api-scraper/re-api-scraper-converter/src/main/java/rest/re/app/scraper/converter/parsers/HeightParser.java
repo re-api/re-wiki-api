@@ -26,15 +26,11 @@ public class HeightParser implements Parser<Height>{
 
     private Height parseWhenFeetMatched(String ft) {
         final String matchedFeet = StringUtils.matchFeet(ft);
-        final String removedTagFeet = matchedFeet
-                .replace("ft", "")
-                .replace("in", "")
-                .trim();
+        final String removedTagFeet = removeTagFeet(matchedFeet);
         final String[] splitFeetInfo = removedTagFeet.split("\\s+");
-        final String feetPart = splitFeetInfo[0];
-        final String inchPart = splitFeetInfo[1];
-        final Double inchDouble = MathUtils.convertInchToFeet(Double.valueOf(inchPart));
-        final Double feetDouble = Double.valueOf(feetPart);
+
+        final Double feetDouble = Double.valueOf(splitFeetInfo[0]);
+        final Double inchDouble = MathUtils.convertInchToFeet(Double.valueOf(splitFeetInfo[1]));
 
         final Double resultFeetValue = feetDouble + inchDouble;
 
@@ -51,5 +47,12 @@ public class HeightParser implements Parser<Height>{
         return new Height()
                 .setCentimeters(centimeter.toString())
                 .setFeet(MathUtils.formatDoubleTo2DecimalPlace(feet));
+    }
+
+    private String removeTagFeet(final String feetString){
+        return feetString
+                .replace("ft", "")
+                .replace("in", "")
+                .trim();
     }
 }

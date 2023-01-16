@@ -1,5 +1,6 @@
 package rest.re.app.scraper.converter;
 
+import common.lib.models.serializable.BodyMass;
 import common.lib.models.serializable.GameCharacter;
 import io.reactivex.rxjava3.core.Single;
 import org.jsoup.nodes.Document;
@@ -29,7 +30,7 @@ class Document2GameCharacterConvertibleTest {
                 .setSex("Male")
                 .setBloodType("A")
                 .setHeight(new HeightParser().parse("178 cm"))
-                .setBodyMass("70.2 kg (155 lb) 75 kg (165 lb)")
+                .setBodyMass(new BodyMass().setKilogram("70.2").setPound("154.76"))
                 .setFirstAppearance("Resident Evil 2 (1998)")
                 .setLastAppearance("Resident Evil 4 (2023)");
         // document
@@ -58,7 +59,7 @@ class Document2GameCharacterConvertibleTest {
                 .setSex("Male")
                 .setBloodType("O")
                 .setHeight(new HeightParser().parse("190 cm"))
-                .setBodyMass("83 kg (183 lb)")
+                .setBodyMass(new BodyMass().setKilogram("83").setPound("182.98"))
                 .setFirstAppearance("Resident Evil (1996)")
                 .setLastAppearance("Resident Evil 0");
         // document
@@ -87,7 +88,7 @@ class Document2GameCharacterConvertibleTest {
                 .setSex("Male")
                 .setBloodType("A")
                 .setHeight(new HeightParser().parse("187 cm"))
-                .setBodyMass("102 kg (225 lb)")
+                .setBodyMass(new BodyMass().setKilogram("102").setPound("224.87"))
                 .setFirstAppearance("Resident Evil 3: Nemesis")
                 .setLastAppearance("Resident Evil: Resistance");
         // document

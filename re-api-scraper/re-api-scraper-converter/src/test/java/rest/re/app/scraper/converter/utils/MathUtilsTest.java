@@ -35,4 +35,32 @@ class MathUtilsTest {
         );
     }
 
+    @Test
+    void convertingKiloToPound(){
+        // Given
+        final Double kilo = 70.2;
+
+        // When
+        final Double result = MathUtils.convertKilogramToPound(kilo);
+
+        //Then
+        Assertions.assertEquals(
+                MathUtils.formatDoubleTo2DecimalPlace(154.76), MathUtils.formatDoubleTo2DecimalPlace(result)
+        );
+    }
+
+    @Test
+    void convertingPoundToKilogram(){
+        // Given
+        final Double pound = 154.76;
+
+        // When
+        final Double result = MathUtils.convertPoundToKilogram(pound);
+
+        //Then
+        Assertions.assertEquals(
+                MathUtils.formatDoubleTo2DecimalPlace(70.2), MathUtils.formatDoubleTo2DecimalPlace(result)
+        );
+    }
+
 }

@@ -64,7 +64,7 @@ public class GameCharacter {
     private Height height;
 
     @JsonProperty("bodyMass")
-    private String bodyMass;
+    private BodyMass bodyMass;
 
     @JsonProperty("firstAppearance")
     private String firstAppearance;
