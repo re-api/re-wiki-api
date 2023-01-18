@@ -27,7 +27,7 @@ public class GameCharacter {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("localisation")
+    @JsonProperty("localization")
     private String localization;
 
     @JsonProperty("description")
