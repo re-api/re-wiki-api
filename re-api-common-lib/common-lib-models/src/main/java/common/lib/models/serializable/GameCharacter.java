@@ -1,4 +1,4 @@
-package rest.re.app.scraper.converter.models;
+package common.lib.models.serializable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * Scraped Game Character Schema
@@ -20,12 +22,12 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode
 @Accessors(chain = true)
 @ToString
-public class ScrapedGameCharacter {
+public class GameCharacter {
 
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("localisation")
+    @JsonProperty("localization")
     private String localization;
 
     @JsonProperty("description")
@@ -47,7 +49,7 @@ public class ScrapedGameCharacter {
     private String race;
 
     @JsonProperty("occupation")
-    private String occupation;
+    private List<String> occupation;
 
     @JsonProperty("status")
     private String status;
@@ -59,10 +61,10 @@ public class ScrapedGameCharacter {
     private String bloodType;
 
     @JsonProperty("height")
-    private String height;
+    private Height height;
 
     @JsonProperty("bodyMass")
-    private String bodyMass;
+    private BodyMass bodyMass;
 
     @JsonProperty("firstAppearance")
     private String firstAppearance;

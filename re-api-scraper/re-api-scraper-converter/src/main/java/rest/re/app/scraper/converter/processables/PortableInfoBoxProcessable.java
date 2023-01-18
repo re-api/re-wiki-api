@@ -21,15 +21,17 @@ public interface PortableInfoBoxProcessable {
      * @return The same tuple, but with the V element updated by the consumer.
      * @param <U> The type the document will be processed into.
      */
-    static<U> Pair<Document, U> processInfoBox(Pair<Document, U> tuple, Consumer<String> consumer, String... containingStrings) {
+    static<U> Pair<Document, U> processInfoBox(
+            Pair<Document, U> tuple, Consumer<String> consumer, String... containingStrings
+    ) {
         return Optional.ofNullable(tuple)
                 .map(t->{
                     final int firstIndex = 0;
-                    final List<String> filteredDateOfBirthValue = CharacterConverterUtils
+                    final List<String> filteredInfo = CharacterConverterUtils
                             .filterElementInPortableInfoBoxByContainingStrings(t.getValue0(), containingStrings);
 
-                    if(!filteredDateOfBirthValue.isEmpty()){
-                        consumer.accept(filteredDateOfBirthValue.get(firstIndex));
+                    if(!filteredInfo.isEmpty()){
+                        consumer.accept(filteredInfo.get(firstIndex));
                     }
                     return t;
                 })

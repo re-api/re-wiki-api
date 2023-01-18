@@ -16,6 +16,7 @@
 
   <modules>
     <module>common-lib-executable-flow-steps</module>
+    <module>common-lib-models</module>
   </modules>
 
   <properties>

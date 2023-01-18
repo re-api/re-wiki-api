@@ -1,5 +1,6 @@
 package flow.steps.charactersfetchingstep.impl;
 
+import common.lib.models.serializable.GameCharacter;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepInput;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput;
 import common.lib.executableflowsteps.ExecutableFlowStep;
@@ -9,7 +10,6 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rest.re.app.scraper.converter.Document2GameCharacterConverter;
-import rest.re.app.scraper.converter.models.ScrapedGameCharacter;
 import rest.re.app.scraper.wiki.ReScrapedWikiPage;
 
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class ScraperCharactersFetchingStepImpl implements ExecutableFlowStep<Scr
         return documentList;
     }
 
-    private Stream<ScrapedGameCharacter> convertEachDocumentFromListIntoScrapedGameCharacter(
+    private Stream<GameCharacter> convertEachDocumentFromListIntoScrapedGameCharacter(
             List<Document> lisOfCharacterHTMLDocument){
         return lisOfCharacterHTMLDocument.stream()
                 .map(characterHTMLDocument-> new Document2GameCharacterConverter().convert(characterHTMLDocument));

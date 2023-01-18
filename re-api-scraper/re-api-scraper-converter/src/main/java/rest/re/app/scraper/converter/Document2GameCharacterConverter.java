@@ -1,20 +1,24 @@
 package rest.re.app.scraper.converter;
 
+import common.lib.models.serializable.GameCharacter;
 import org.javatuples.Pair;
 import org.jsoup.nodes.Document;
-import rest.re.app.scraper.converter.models.ScrapedGameCharacter;
+import rest.re.app.scraper.converter.parsers.BodyMassParser;
+import rest.re.app.scraper.converter.parsers.HeightParser;
 import rest.re.app.scraper.converter.processables.CharacterPortableInfoBoxProcessable;
 import rest.re.app.scraper.converter.processables.PortableInfoBoxProcessable;
 import rest.re.app.scraper.converter.utils.CharacterConverterUtils;
 
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Converts a Document into a ScrapedGameCharacter object implementing the Convertable interface.
  */
-public class Document2GameCharacterConverter implements Convertible<Document, ScrapedGameCharacter>, CharacterPortableInfoBoxProcessable {
+public class Document2GameCharacterConverter implements Convertible<Document, GameCharacter>, CharacterPortableInfoBoxProcessable {
 
     /**
      * Processes the name of the character.
@@ -22,7 +26,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if name isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processName(Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processName(Pair<Document, GameCharacter> tuple) {
         return Optional.ofNullable(tuple)
                 .map(t->{
                     try{
@@ -37,7 +41,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
     }
 
     @Override
-    public Pair<Document, ScrapedGameCharacter> processLocalisation(Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processLocalisation(Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setLocalization,
                 "localisation");
     }
@@ -48,7 +52,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if description isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processDescription(Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processDescription(Pair<Document, GameCharacter> tuple) {
         return Optional.ofNullable(tuple)
                 .map(t->{
                     final Integer indexWhereDescriptionIsLocated = 2;
@@ -71,7 +75,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if dateOfBirth isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processDateOfBirth(final Pair<Document, ScrapedGameCharacter> tuple){
+    public Pair<Document, GameCharacter> processDateOfBirth(final Pair<Document, GameCharacter> tuple){
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setDateOfBirth, "date of birth");
     }
 
@@ -81,7 +85,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if dateOfDeath isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processDateOfDeath(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processDateOfDeath(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setDateOfDeath, "date of death");
     }
 
@@ -91,7 +95,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if placeOfBirth isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processPlaceOfBirth(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processPlaceOfBirth(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setPlaceOfBirth, "place of birth");
     }
 
@@ -101,7 +105,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if placeOfBirth isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processPlaceOfDeath(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processPlaceOfDeath(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setPlaceOfDeath, "place of death");
     }
 
@@ -111,7 +115,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if race isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processRace(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processRace(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setRace, "race", "nationality");
     }
 
@@ -121,8 +125,10 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if occupation isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processOccupation(final Pair<Document, ScrapedGameCharacter> tuple) {
-        return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setOccupation, "occupation");
+    public Pair<Document, GameCharacter> processOccupation(final Pair<Document, GameCharacter> tuple) {
+        return PortableInfoBoxProcessable.processInfoBox(tuple, occupation->
+                tuple.getValue1().setOccupation(Arrays.stream(occupation.split(",")).collect(Collectors.toList())),
+                "occupation");
     }
 
     /**
@@ -131,7 +137,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if status isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processStatus(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processStatus(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setStatus, "status");
     }
 
@@ -141,7 +147,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if sex isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processSex(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processSex(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setSex, "sex");
     }
 
@@ -151,7 +157,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if bloodType isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processBloodType(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processBloodType(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setBloodType, "blood");
     }
 
@@ -161,8 +167,11 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if height isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processHeight(final Pair<Document, ScrapedGameCharacter> tuple) {
-        return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setHeight, "height");
+    public Pair<Document, GameCharacter> processHeight(final Pair<Document, GameCharacter> tuple) {
+        return PortableInfoBoxProcessable.processInfoBox(tuple, height->
+                tuple.getValue1()
+                        .setHeight(new HeightParser().parse(height)),
+                "height");
     }
 
     /**
@@ -171,8 +180,10 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if bodyMass isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processBodyMass(final Pair<Document, ScrapedGameCharacter> tuple) {
-        return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setBodyMass, "mass");
+    public Pair<Document, GameCharacter> processBodyMass(final Pair<Document, GameCharacter> tuple) {
+        return PortableInfoBoxProcessable.processInfoBox(tuple, bodyMass->
+                tuple.getValue1().setBodyMass(new BodyMassParser().parse(bodyMass)),
+                "mass");
     }
 
     /**
@@ -181,7 +192,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if firstAppearance isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processFirstAppearance(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processFirstAppearance(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setFirstAppearance, "first appearance");
     }
 
@@ -191,14 +202,14 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
      * @return the same tuple, but state modified if lastAppearance isn't null.
      */
     @Override
-    public Pair<Document, ScrapedGameCharacter> processLastAppearance(final Pair<Document, ScrapedGameCharacter> tuple) {
+    public Pair<Document, GameCharacter> processLastAppearance(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setLastAppearance, "last appearance");
     }
 
     @Override
-    public ScrapedGameCharacter convert(Document document) {
+    public GameCharacter convert(Document document) {
         return Optional.ofNullable(document)
-                .map(doc -> new Pair<>(doc, new ScrapedGameCharacter()))
+                .map(doc -> new Pair<>(doc, new GameCharacter()))
                 .map(this::processName)
                 .map(this::processLocalisation)
                 .map(this::processDescription)
@@ -217,6 +228,6 @@ public class Document2GameCharacterConverter implements Convertible<Document, Sc
                 .map(this::processFirstAppearance)
                 .map(this::processLastAppearance)
                 .map(Pair::getValue1)
-                .orElse(new ScrapedGameCharacter());
+                .orElse(new GameCharacter());
     }
 }
