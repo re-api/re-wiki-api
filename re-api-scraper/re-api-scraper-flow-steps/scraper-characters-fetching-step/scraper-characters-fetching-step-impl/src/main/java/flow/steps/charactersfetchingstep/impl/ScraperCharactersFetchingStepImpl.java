@@ -1,11 +1,10 @@
 package flow.steps.charactersfetchingstep.impl;
 
+import common.lib.executableflowsteps.ExecutableFlowStep;
 import common.lib.models.serializable.GameCharacter;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepInput;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput;
-import common.lib.executableflowsteps.ExecutableFlowStep;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.Disposable;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,26 +59,29 @@ public class ScraperCharactersFetchingStepImpl implements ExecutableFlowStep<Scr
     private List<String> pullListOfCharactersForEachGameUrl(List<String> listOfGamesUrlPath){
         List<String> charactersWikiUrlPath = new ArrayList<>();
 
-        Disposable disposable = listOfGamesUrlPath.forEach(gameWikiUrlPath->ReScrapedWikiPage.of(gameWikiUrlPath)
+        listOfGamesUrlPath.forEach(
+                gameWikiUrlPath->ReScrapedWikiPage.of(gameWikiUrlPath)
                     .scrape()
                     .map(document -> document.getElementsByClass("article-table"))
                     .map(elements -> elements.select("tr td:eq(0)"))// <- this selects only characters, not voice actors.
                     .map(articleTable->articleTable.select("a"))
                     .map(href->href.stream().map(l->l.attr("href"))
                             .collect(Collectors.toList()))
-                    .subscribe(charactersWikiUrlPath::addAll));
-
-        disposable.dispose();
+                    .subscribe(listOfWikiUrlPath -> charactersWikiUrlPath.addAll(listOfWikiUrlPath)).dispose()
+        );
 
         return charactersWikiUrlPath;
     }
 
     private List<Document> retrieveAListOfHTMLDocumentForEachWikiUrlPath(Set<String> nonDuplicateCharacterWikiUrlPath){
         List<Document> documentList = new ArrayList<>();
-        Disposable disposable = nonDuplicateCharacterWikiUrlPath.forEach(characterWikiUrl -> ReScrapedWikiPage
-                .of(characterWikiUrl).scrape().subscribe(documentList::add));
+        nonDuplicateCharacterWikiUrlPath.forEach(
+                characterWikiUrl -> ReScrapedWikiPage
+                        .of(characterWikiUrl).scrape()
+                        .subscribe(document->documentList.add(document))
+                        .dispose()
+        );
 
-        disposable.dispose();
         return documentList;
     }
 

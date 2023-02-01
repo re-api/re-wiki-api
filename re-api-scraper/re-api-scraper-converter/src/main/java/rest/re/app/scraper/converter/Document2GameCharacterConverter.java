@@ -63,7 +63,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
                                 .text();
                         t.getValue1().setDescription(CharacterConverterUtils.removeSourceReferences(description));
                         return t;
-                    }catch (NullPointerException e){
+                    }catch (NullPointerException | IndexOutOfBoundsException e){
                         return t;
                     }
                 }).orElse(new Pair<>(null, null));
