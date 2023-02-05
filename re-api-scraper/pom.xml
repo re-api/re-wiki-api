@@ -30,6 +30,7 @@
     <module>re-api-scraper-wiki</module>
     <module>re-api-scraper-converter</module>
     <module>re-api-scraper-flow-steps</module>
+    <module>re-api-scraper-service</module>
   </modules>
 
   <dependencies>

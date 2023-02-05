@@ -15,6 +15,7 @@
 
   <modules>
     <module>scraper-games-url-fetching-step</module>
+    <module>scraper-characters-fetching-step</module>
   </modules>
 
 
