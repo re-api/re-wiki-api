@@ -1,0 +1,129 @@
+openapi: 3.0.1
+info:
+  title: Book Shop
+  description: Book CRUD API.
+  version: 1.0.0
+servers:
+  - url: /v2
+
+paths:
+  /characters:
+    get:
+      tags:
+        - pet
+      summary: Find all characters from all games
+      description: Retrieves a list of all characters in all games
+      operationId: findCharacters
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameCharacter'
+        '400':
+          description: Invalid status value
+
+components:
+  schemas:
+    GameCharacter:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          description: The name of the character.
+          example: Leon S. Kennedy
+        localization:
+          type: string
+          description: How the character is called on his native language.
+          example: Leon Scott Kennedy
+        description:
+          type: string
+          description: A brief overview of what the character does and who they are.
+          example: A police office that was on his first duty day in Raccoon City...
+        dateOfBirth:
+          type: string
+          description: The date the character was bron.
+          example: 18 Jan 1977
+        dateOfDeath:
+          type: string
+          description: The date the character died, if they died.
+          example: 34 Mar 2021
+        placeOfBirth:
+          type: string
+          description: In which location character was born. It can be a city, region, country, etc.
+          example: Edonia
+        placeOfDeath:
+          type: string
+          description: The location character died. It can be a city, region or country.
+          example: Arklay Mountains Lab
+        race:
+          type: string
+          description: the race of the character
+          example: Caucasian
+        occupation:
+          type: array
+          items:
+            type: string
+          description: the list of jobs or mission the character enrolled.
+          example: ['Police Officer']
+        status:
+          type: string
+          nullable: true
+          enum:
+            - 'Alive'
+            - 'Deceased'
+            - 'Unknown'
+            - null
+        sex:
+          type: string
+          nullable: true
+          enum:
+            - 'Male'
+            - 'Female'
+            - null
+        bloodType:
+          type: string
+          description: Blood Type of character
+          example: A
+        height:
+          $ref: '#/components/schemas/Height'
+        bodyMass:
+          $ref: '#/components/schemas/BodyMass'
+        firstAppearance:
+          type: string
+          description: The game where the character first appeared
+          example: Resident Evil 1
+        lastAppearance:
+          type: string
+          description: The game where the character last appeared. Not necessarily a resident game, like Dead by Daylight.
+          example: Resident Evil 9 (2020)
+    Height:
+      type: object
+      properties:
+        centimeters:
+          type: string
+          description: The height of the character in
+          example: 178
+        feet:
+          type: string
+          description: The height in feet
+          example: 6.2 ft
+
+    BodyMass:
+      type: object
+      properties:
+        kilogram:
+          type: string
+          description: the weight in kilogram.
+          example: 78 kg
+        pound:
+          type: string
+          description: the weight in punds.
+          example: 200 lb
+
