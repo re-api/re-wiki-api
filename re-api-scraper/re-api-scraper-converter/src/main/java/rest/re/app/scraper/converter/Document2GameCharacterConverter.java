@@ -55,10 +55,13 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
     public Pair<Document, GameCharacter> processDescription(Pair<Document, GameCharacter> tuple) {
         return Optional.ofNullable(tuple)
                 .map(t->{
-                    final Integer indexWhereDescriptionIsLocated = 2;
+                    final Integer indexWhereDescriptionIsLocated = 0;
                     try{
                         final String description = Objects.requireNonNull(t.getValue0()
-                                .getElementsByClass("mw-parser-output").first()).select("p")
+                                .getElementsByClass("mw-parser-output").first()).select("div.mw-parser-output > p")
+                                .stream()
+                                .filter(element->!element.text().equals("") && !element.text().equals("\n"))
+                                .collect(Collectors.toList())
                                 .get(indexWhereDescriptionIsLocated)
                                 .text();
                         t.getValue1().setDescription(CharacterConverterUtils.removeSourceReferences(description));

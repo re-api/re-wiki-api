@@ -9,9 +9,9 @@
     <relativePath />
   </parent>
 
-  <groupId>resr.re.app.api.rest.api</groupId>
+  <groupId>rest.re.app.api.rest.api</groupId>
   <artifactId>re-api-rest-api</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
 
   <name>{project.artifactId}</name>
 
@@ -93,8 +93,8 @@
               </inputSpec>
               <generatorName>spring</generatorName>
               <language>spring</language>
-              <apiPackage>resr.re.app.api.rest.api.api</apiPackage>
-              <modelPackage>resr.re.app.api.rest.api.model</modelPackage>
+              <apiPackage>rest.re.app.api.rest.api.api</apiPackage>
+              <modelPackage>rest.re.app.api.rest.api.model</modelPackage>
               <generateModels>true</generateModels>
               <generateApis>true</generateApis>
               <configOptions>

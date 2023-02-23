@@ -37,7 +37,7 @@ class ScraperCharactersFetchingStepImplTest {
                 .setHeight(new HeightParser().parse("178 cm (5 ft 10 in) 180 cm (5 ft 11 in)"))
                 .setBodyMass(new BodyMassParser().parse("70.2 kg (155 lb) 75 kg (165 lb)"))
                 .setFirstAppearance("Resident Evil 2 (1998)")
-                .setLastAppearance("Resident Evil 4 (2023)");
+                .setLastAppearance("Resident Evil: Death Island");
 
         // And another expected character is:
         GameCharacter nikolai = new GameCharacter()

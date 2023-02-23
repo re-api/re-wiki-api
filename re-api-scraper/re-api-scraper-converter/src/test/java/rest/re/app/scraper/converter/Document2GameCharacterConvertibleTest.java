@@ -32,7 +32,7 @@ class Document2GameCharacterConvertibleTest {
                 .setHeight(new HeightParser().parse("178 cm"))
                 .setBodyMass(new BodyMass().setKilogram("70.2").setPound("154.76"))
                 .setFirstAppearance("Resident Evil 2 (1998)")
-                .setLastAppearance("Resident Evil 4 (2023)");
+                .setLastAppearance("Resident Evil: Death Island");
         // document
         Document doc = documentSingle.test().values().get(0);
 
