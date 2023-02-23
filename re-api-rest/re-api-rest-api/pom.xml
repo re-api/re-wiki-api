@@ -93,7 +93,7 @@
               </inputSpec>
               <generatorName>spring</generatorName>
               <language>spring</language>
-              <apiPackage>rest.re.app.api.rest.api.api</apiPackage>
+              <apiPackage>rest.re.app.api.rest.api</apiPackage>
               <modelPackage>rest.re.app.api.rest.api.model</modelPackage>
               <generateModels>true</generateModels>
               <generateApis>true</generateApis>

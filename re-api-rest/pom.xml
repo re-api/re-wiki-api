@@ -25,6 +25,7 @@
       
   <modules>
     <module>re-api-rest-api</module>
+    <module>re-api-rest-service</module>
   </modules>
 
   
