@@ -13,7 +13,7 @@ public class ScrapeRoutineRouter extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("timer:scrape-characters?period=10000")
+        from("timer:scrape-characters?period=10000&delay=0")
                 .to(scrapeCharacterListRouter.directName());
     }
 }

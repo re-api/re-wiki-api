@@ -27,7 +27,7 @@ class ListGameUrlFetchingStepImplTest {
         Assertions.assertTrue(gameUrls.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_CODE:Veronica")));
         Assertions.assertTrue(gameUrls.stream().anyMatch(href->href.equals("/wiki/Resident_Evil")));
         Assertions.assertTrue(gameUrls.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_0")));
-        Assertions.assertTrue(gameUrls.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_4")));
+        Assertions.assertTrue(gameUrls.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_4_(2005_game)")));
         Assertions.assertTrue(gameUrls.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_5")));
         Assertions.assertTrue(gameUrls.stream().anyMatch(href->href.equals("/wiki/Resident_Evil:_Revelations")));
         Assertions.assertTrue(gameUrls.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_6")));

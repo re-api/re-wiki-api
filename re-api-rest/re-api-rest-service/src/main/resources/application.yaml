@@ -3,4 +3,4 @@ spring:
     broker-url: tcp://localhost:61616
 
 server:
-  port: 8001
+  port: 8000

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rest.re.app.scraper.service.beanprocessors.Preparer;
 
+import static rest.re.app.scraper.service.QueueNames.GAME_CHARACTERS;
+
 @Component
 public class ActiveMqGameCharacterPrepareRouter extends RouteBuilder implements Nameable{
 
@@ -15,7 +17,8 @@ public class ActiveMqGameCharacterPrepareRouter extends RouteBuilder implements 
 
         from(directName())
                 .bean(gameCharacterActiveMqBodyPreparerBean, "prepare")
-                .to("activemq:game-characters");
+                .to(GAME_CHARACTERS.retrieveActiveMqRouteUri())
+                .log("Dispatched Message to active mq.");
     }
 
     @Override

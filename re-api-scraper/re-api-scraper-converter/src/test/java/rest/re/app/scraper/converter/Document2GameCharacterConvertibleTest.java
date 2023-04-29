@@ -22,10 +22,10 @@ class Document2GameCharacterConvertibleTest {
         // Expected Result:
         GameCharacter expectedCharacter = new GameCharacter()
                 .setName("Leon Scott Kennedy")
-                .setDescription("Leon Scott Kennedy is an American of Italian descent currently employed as a federal agent by the Division of Security Operations (D.S.O.), a counter-terrorism agency with direct Presidential oversight. Kennedy is a known survivor of the 1998 Raccoon City Destruction Incident, then as a police officer. Following his escape, he was offered a job in a US.STRATCOM team devoted to anti-B.O.W. combat, and served it until 2011 in repeated operations around the world.")
+                .setDescription("Leon Scott Kennedy is an American of Italian descent currently employed as a federal agent by the Division of Security Operations (D.S.O.), a counter-terrorism agency with direct Presidential oversight. Kennedy is a known survivor of the 1998 Raccoon City Destruction Incident, then as a police officer. Following his escape, he was offered a job in a USSTRATCOM team devoted to anti-B.O.W. combat, and served it until 2011 in repeated operations around the world.")
                 .setDateOfBirth("1977")
                 .setRace("Caucasian/American")
-                .setOccupation(Arrays.asList("Police Officer (1998)", "US-STRATCOM Agent (1998–2011)", "DSO Agent (2011–)"))
+                .setOccupation(Arrays.asList("Police Officer (1998)", "USSTRATCOM Agent (1998–2011)", "DSO Agent (2011–)"))
                 .setStatus("Alive")
                 .setSex("Male")
                 .setBloodType("A")

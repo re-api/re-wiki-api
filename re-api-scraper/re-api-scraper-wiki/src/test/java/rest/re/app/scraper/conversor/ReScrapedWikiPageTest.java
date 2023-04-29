@@ -43,7 +43,7 @@ class ReScrapedWikiPageTest {
         Assertions.assertTrue(hrefs.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_CODE:Veronica")));
         Assertions.assertTrue(hrefs.stream().anyMatch(href->href.equals("/wiki/Resident_Evil")));
         Assertions.assertTrue(hrefs.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_0")));
-        Assertions.assertTrue(hrefs.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_4")));
+        Assertions.assertTrue(hrefs.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_4_(2005_game)")));
         Assertions.assertTrue(hrefs.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_5")));
         Assertions.assertTrue(hrefs.stream().anyMatch(href->href.equals("/wiki/Resident_Evil:_Revelations")));
         Assertions.assertTrue(hrefs.stream().anyMatch(href->href.equals("/wiki/Resident_Evil_6")));
@@ -98,7 +98,7 @@ class ReScrapedWikiPageTest {
 
         List<List<String>> leonsAttribute = leonsAttributeSingle.test().values().get(0);
 
-        Assertions.assertEquals("Police Officer (1998) US-STRATCOM Agent (1998–2011)[3] DSO Agent (2011–)",leonsAttribute.get(3).get(1));
+        Assertions.assertEquals("Police Officer (1998) USSTRATCOM Agent (1998–2011)[3] DSO Agent (2011–)",leonsAttribute.get(3).get(1));
 
 
     }
