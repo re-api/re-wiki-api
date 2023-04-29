@@ -1,12 +1,11 @@
-package rest.re.app.scraper.service.activemq;
+package re.api.common.lib;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import rest.re.app.scraper.service.QueueNames;
-import rest.re.app.scraper.service.RouteUriRetrievable;
+
+
 
 class QueueNamesTest {
-
     @Test
     void whenGameCharactersThenActiveMQRouteIdShouldStartWithActiveMQTextFollowedByGameCharacterText(){
         // when

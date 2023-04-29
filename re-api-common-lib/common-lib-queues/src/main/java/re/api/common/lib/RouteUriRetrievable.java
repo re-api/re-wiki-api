@@ -1,4 +1,4 @@
-package rest.re.app.scraper.service;
+package re.api.common.lib;
 
 public interface RouteUriRetrievable {
 

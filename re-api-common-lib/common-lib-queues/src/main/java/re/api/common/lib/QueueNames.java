@@ -1,7 +1,6 @@
-package rest.re.app.scraper.service;
+package re.api.common.lib;
 
 import lombok.Getter;
-import rest.re.app.scraper.service.RouteUriRetrievable;
 
 @Getter
 public enum QueueNames implements RouteUriRetrievable {
