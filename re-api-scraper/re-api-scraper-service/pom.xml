@@ -143,7 +143,65 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>rest.re.app.scraper.service.ScraperService</mainClass>
+        </configuration>
+
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <!-- here the phase you need -->
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>1.4.13</version>
+        <executions>
+          <execution>
+            <id>default</id>
+            <goals>
+              <goal>build</goal>
+              <goal>push</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <repository>resident-api/${project.artifactId}</repository>
+          <tag>${project.version}</tag>
+          <buildArgs>
+            <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+          </buildArgs>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
