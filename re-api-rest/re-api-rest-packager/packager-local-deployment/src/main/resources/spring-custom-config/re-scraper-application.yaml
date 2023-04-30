@@ -1,0 +1,6 @@
+spring:
+  activemq:
+    broker-url: tcp://re-active-mq:61616
+
+server:
+  port: 8001

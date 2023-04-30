@@ -20,7 +20,17 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <!--Third party libs-->
+
+
+    <!-- Docker Properties -->
+    <re.rest.service.image.name>resident-api/re-api-rest-service</re.rest.service.image.name>
+    <re.rest.service.image.version>${project.version}</re.rest.service.image.version>
+    <re.scraper.service.image.name>resident-api/re-api-scraper-service</re.scraper.service.image.name>
+    <re.scraper.service.image.version>${project.version}</re.scraper.service.image.version>
+    <re.active.mq.image.name>rmohr/activemq</re.active.mq.image.name>
+    <re.active.mq.image.version>5.10.0</re.active.mq.image.version>
+
+
   </properties>
       
   <modules>

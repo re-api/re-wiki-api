@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  re-rest-service:
+    image: ${re.rest.service.image.name}:${re.rest.service.image.version}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ${project.build.directory}/spring-custom-config/re-rest-application.yaml:/config/application.yaml
+    command: ["java", "-jar", "app.jar","--spring.config.location=file:/config/application.yaml"]
+    networks:
+      - re-network
+    depends_on:
+      - re-scraper-service
+      - re-active-mq
+
+  re-scraper-service:
+    image: ${re.scraper.service.image.name}:${re.scraper.service.image.version}
+    ports:
+      - "8001:8001"
+    networks:
+      - re-network
+    volumes:
+      - ${project.build.directory}/spring-custom-config/re-scraper-application.yaml:/config/application.yaml
+    command: ["java", "-jar", "app.jar", "--spring.config.location=file:/config/application.yaml"]
+    depends_on:
+      - re-active-mq
+
+  re-active-mq:
+    image: ${re.active.mq.image.name}:${re.active.mq.image.version}
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    networks:
+      - re-network
+
+
+
+networks:
+  re-network:
