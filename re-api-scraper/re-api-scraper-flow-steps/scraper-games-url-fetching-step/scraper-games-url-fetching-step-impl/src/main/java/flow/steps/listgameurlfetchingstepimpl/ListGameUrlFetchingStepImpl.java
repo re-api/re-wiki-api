@@ -6,7 +6,7 @@ import flow.steps.listgameurlfetchingstep.ListGameUrlFetchingStepOutput;
 import io.reactivex.rxjava3.core.Single;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rest.re.app.scraper.wiki.ReScrapedWikiPage;
+import rest.re.app.api.rest.scraper.wiki.ReScrapedWikiPage;
 
 import java.util.stream.Collectors;
 

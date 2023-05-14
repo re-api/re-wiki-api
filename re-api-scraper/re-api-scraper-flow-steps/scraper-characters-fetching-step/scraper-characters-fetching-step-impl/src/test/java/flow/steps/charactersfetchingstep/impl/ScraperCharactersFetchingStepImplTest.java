@@ -6,8 +6,8 @@ import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput
 import io.reactivex.rxjava3.core.Single;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import rest.re.app.scraper.converter.parsers.BodyMassParser;
-import rest.re.app.scraper.converter.parsers.HeightParser;
+import rest.re.app.api.rest.scraper.converter.parsers.BodyMassParser;
+import rest.re.app.api.rest.scraper.converter.parsers.HeightParser;
 
 import java.util.Arrays;
 import java.util.Collections;

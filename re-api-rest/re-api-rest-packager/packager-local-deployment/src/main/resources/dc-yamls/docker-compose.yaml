@@ -8,33 +8,37 @@ services:
     volumes:
       - ${project.build.directory}/spring-custom-config/re-rest-application.yaml:/config/application.yaml
     command: ["java", "-jar", "app.jar","--spring.config.location=file:/config/application.yaml"]
-    networks:
-      - re-network
     depends_on:
       - re-scraper-service
       - re-active-mq
+      - re-characters-database
 
   re-scraper-service:
     image: ${re.scraper.service.image.name}:${re.scraper.service.image.version}
     ports:
       - "8001:8001"
-    networks:
-      - re-network
     volumes:
       - ${project.build.directory}/spring-custom-config/re-scraper-application.yaml:/config/application.yaml
     command: ["java", "-jar", "app.jar", "--spring.config.location=file:/config/application.yaml"]
     depends_on:
       - re-active-mq
+      - re-characters-database
 
   re-active-mq:
     image: ${re.active.mq.image.name}:${re.active.mq.image.version}
     ports:
       - "61616:61616"
       - "8161:8161"
-    networks:
-      - re-network
 
+  re-characters-database:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - /var/lib/postgresql/re-characters-database:/var/lib/postgresql/data
+      - ${project.build.directory}/db-init-scripts:/docker-entrypoint-initdb.d
 
-
-networks:
-  re-network:

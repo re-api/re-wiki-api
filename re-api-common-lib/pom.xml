@@ -18,6 +18,7 @@
     <module>common-lib-executable-flow-steps</module>
     <module>common-lib-models</module>
     <module>common-lib-queues</module>
+    <module>crud-service</module>
   </modules>
 
   <properties>

@@ -1,0 +1,13 @@
+package rest.re.app.api.rest.api.rest.service.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import rest.re.app.api.rest.api.rest.service.models.CharacterServiceCharacter;
+
+import java.util.UUID;
+
+@Repository
+public interface CharacterRepository extends JpaRepository<CharacterServiceCharacter, UUID> {
+
+
+}

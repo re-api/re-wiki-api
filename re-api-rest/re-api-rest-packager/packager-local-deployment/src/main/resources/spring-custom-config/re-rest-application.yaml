@@ -1,4 +1,18 @@
 spring:
+  jpa:
+    generate-ddl: true
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://re-characters-database:5432/characters
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+
   activemq:
     broker-url: tcp://re-active-mq:61616
 

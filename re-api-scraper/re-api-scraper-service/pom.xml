@@ -144,7 +144,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>rest.re.app.scraper.service.ScraperService</mainClass>
+          <mainClass>rest.re.app.api.rest.scraper.service.ScraperService</mainClass>
         </configuration>
 
         <executions>

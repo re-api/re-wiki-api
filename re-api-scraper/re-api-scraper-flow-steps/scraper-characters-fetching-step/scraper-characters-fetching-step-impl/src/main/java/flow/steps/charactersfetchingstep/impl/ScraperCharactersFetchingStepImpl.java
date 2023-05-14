@@ -8,8 +8,8 @@ import io.reactivex.rxjava3.core.Single;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rest.re.app.scraper.converter.Document2GameCharacterConverter;
-import rest.re.app.scraper.wiki.ReScrapedWikiPage;
+import rest.re.app.api.rest.scraper.converter.Document2GameCharacterConverter;
+import rest.re.app.api.rest.scraper.wiki.ReScrapedWikiPage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
