@@ -1,7 +1,9 @@
 package rest.re.app.api.rest.api.rest.service.camelroutes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import common.lib.models.serializable.BodyMass;
 import common.lib.models.serializable.GameCharacter;
+import common.lib.models.serializable.Height;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.slf4j.Logger;
@@ -10,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import re.api.common.lib.CRUDService;
 import re.api.common.lib.QueueNames;
-
 import rest.re.app.api.rest.api.rest.service.models.CharacterServiceCharacter;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -61,14 +63,12 @@ public class ActiveMQListenerRouter extends RouteBuilder {
                                 .setPlaceOfBirth(gameCharacter.getPlaceOfBirth())
                                 .setPlaceOfDeath(gameCharacter.getPlaceOfDeath())
                                 .setRace(gameCharacter.getRace())
-                                .setOccupation(gameCharacter.getOccupation())
+                                .setOccupations(safeParseOccupation(gameCharacter.getOccupation()))
                                 .setStatus(gameCharacter.getStatus())
                                 .setSex(gameCharacter.getSex())
                                 .setBloodType(gameCharacter.getBloodType())
-                                .setHeight(Integer.valueOf(Optional.ofNullable(gameCharacter.getHeight())
-                                        .map(height->height.getCentimeters()).orElse(null)))
-                                .setBodyMass(Double.valueOf(Optional.ofNullable(gameCharacter.getBodyMass())
-                                        .map(bodyMass -> bodyMass.getKilogram()).orElse(null)))
+                                .setHeight(safeParse(gameCharacter.getHeight()))
+                                .setBodyMass(safeParse(gameCharacter.getBodyMass()))
                                 .setFirstAppearance(gameCharacter.getFirstAppearance())
                                 .setLastAppearance(gameCharacter.getLastAppearance());
 
@@ -83,17 +83,68 @@ public class ActiveMQListenerRouter extends RouteBuilder {
                     }
                 })
                 .process(exchange -> {
-                    try{
+                    try {
                         final CharacterServiceCharacter characterServiceCharacter = exchange.getProperty(CHARACTER_PROP,
                                 CharacterServiceCharacter.class);
-                        if(Objects.nonNull(characterServiceCharacter)){
+                        if (Objects.nonNull(characterServiceCharacter)) {
                             logger.info("Saving the character to the database.");
-                            characterService.save(characterServiceCharacter);
+                            final List<CharacterServiceCharacter> characterServiceCharacterList = characterService
+                                    .findByName(characterServiceCharacter.getName());
+
+                            if (characterServiceCharacterList.isEmpty()) {
+
+                                characterService.save(characterServiceCharacter);
+                            } else {
+                                logger.warn("Not saving character to database because it already exists. " +
+                                        "Characters with that name: {}", characterServiceCharacterList);
+                            }
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         logger.error("Error saving the character to database: {}", e.toString());
                     }
                 });
 
+    }
+
+    private List<String> safeParseOccupation(final List<String> occupations) {
+        return Optional.ofNullable(occupations)
+                .map(occ -> {
+                    if (occupations.isEmpty()) {
+                        return null;
+                    } else {
+                        return occ;
+                    }
+                })
+                .orElse(null);
+    }
+
+    private Double safeParse(final BodyMass bodyMass) {
+        return Optional.ofNullable(bodyMass)
+                .flatMap(b -> Optional.ofNullable(b.getKilogram()))
+                .map(kg -> {
+                    try {
+                        return Double.valueOf(kg);
+                    } catch (Exception e) {
+                        logger.error("Error trying to convert string kilogram into Double. Returning null.");
+                        logger.error(e.getMessage());
+                        return null;
+                    }
+                })
+                .orElse(null);
+    }
+
+    private Integer safeParse(final Height height) {
+        return Optional.ofNullable(height)
+                .flatMap(h -> Optional.ofNullable(h.getCentimeters()))
+                .map(centimeters -> {
+                    try {
+                        return Integer.valueOf(centimeters);
+                    } catch (Exception e) {
+                        logger.error("Error trying to convert string centimeters into Integer. Returning null.");
+                        logger.error(e.getMessage());
+                        return null;
+                    }
+                })
+                .orElse(null);
     }
 }

@@ -6,16 +6,23 @@ import re.api.common.lib.CRUDService;
 import rest.re.app.api.rest.api.rest.service.models.CharacterServiceCharacter;
 import rest.re.app.api.rest.api.rest.service.repositories.CharacterRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class CharacterService implements CRUDService<CharacterServiceCharacter> {
 
     @Autowired
     private CharacterRepository characterRepository;
 
+
+    @Override
+    public List<CharacterServiceCharacter> findByName(String name) {
+        return characterRepository.findByName(name);
+    }
 
     @Override
     public List<CharacterServiceCharacter> listAll() {

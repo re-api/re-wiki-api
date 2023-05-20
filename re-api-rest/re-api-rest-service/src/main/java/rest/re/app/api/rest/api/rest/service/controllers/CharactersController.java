@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class CharactersService implements CharactersApi {
+public class CharactersController implements CharactersApi {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 

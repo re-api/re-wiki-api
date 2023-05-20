@@ -5,6 +5,8 @@ import java.util.UUID;
 
 public interface CRUDService<T> {
 
+    List<T> findByName(final String name);
+
     List<T> listAll();
     T getById(UUID uuid);
 

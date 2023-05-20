@@ -2,12 +2,13 @@ package rest.re.app.api.rest.api.rest.service.models;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"name"})})
 @Data
 @Accessors(chain = true)
+@Transactional
 public class CharacterServiceCharacter {
 
 
@@ -34,7 +36,7 @@ public class CharacterServiceCharacter {
     @Column(name = "localization")
     private String localization;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition="TEXT")
     private String description;
 
     @Column(name = "dateOfBirth")
@@ -55,7 +57,7 @@ public class CharacterServiceCharacter {
     @ElementCollection
     @CollectionTable(name = "occupation", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "occupation")
-    private List<String> occupation;
+    private List<String> occupations;
 
     @Column(name = "status")
     private String status;
