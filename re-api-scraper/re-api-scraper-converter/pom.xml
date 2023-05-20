@@ -67,7 +67,19 @@
       <artifactId>javatuples</artifactId>
       <version>${javatuples.version}</version>
     </dependency>
+      <dependency>
+          <groupId>re.api.common.lib</groupId>
+          <artifactId>common-lib-utils</artifactId>
+          <version>1.0.0-SNAPSHOT</version>
+          <scope>compile</scope>
+      </dependency>
 
+    <dependency>
+      <groupId>re.api.common.lib</groupId>
+      <artifactId>common-lib-parsers</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
 
 
   </dependencies>

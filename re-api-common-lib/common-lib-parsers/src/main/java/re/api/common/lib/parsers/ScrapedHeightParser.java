@@ -1,12 +1,13 @@
-package rest.re.app.api.rest.scraper.converter.parsers;
+package re.api.common.lib.parsers;
 
 import common.lib.models.serializable.Height;
-import rest.re.app.api.rest.scraper.converter.utils.MathUtils;
-import rest.re.app.api.rest.scraper.converter.utils.StringUtils;
+import re.api.common.lib.utils.MathUtils;
+import re.api.common.lib.utils.StringUtils;
+
 
 import java.util.Optional;
 
-public class HeightParser implements Parser<Height>{
+public class ScrapedHeightParser implements Parser<Height>{
     @Override
     public Height parse(String string) {
         return Optional.ofNullable(string)

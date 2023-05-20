@@ -1,4 +1,4 @@
-package rest.re.app.api.rest.scraper.converter.parsers;
+package re.api.common.lib.parsers;
 
 public interface Parser<T> {
 

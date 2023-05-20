@@ -6,8 +6,8 @@ import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput
 import io.reactivex.rxjava3.core.Single;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import rest.re.app.api.rest.scraper.converter.parsers.BodyMassParser;
-import rest.re.app.api.rest.scraper.converter.parsers.HeightParser;
+import re.api.common.lib.parsers.ScrapedBodyMassParser;
+import re.api.common.lib.parsers.ScrapedHeightParser;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,8 +34,8 @@ class ScraperCharactersFetchingStepImplTest {
                 .setStatus("Alive")
                 .setSex("Male")
                 .setBloodType("A")
-                .setHeight(new HeightParser().parse("178 cm (5 ft 10 in) 180 cm (5 ft 11 in)"))
-                .setBodyMass(new BodyMassParser().parse("70.2 kg (155 lb) 75 kg (165 lb)"))
+                .setHeight(new ScrapedHeightParser().parse("178 cm (5 ft 10 in) 180 cm (5 ft 11 in)"))
+                .setBodyMass(new ScrapedBodyMassParser().parse("70.2 kg (155 lb) 75 kg (165 lb)"))
                 .setFirstAppearance("Resident Evil 2 (1998)")
                 .setLastAppearance("Resident Evil: Death Island");
 
@@ -50,8 +50,8 @@ class ScraperCharactersFetchingStepImplTest {
                 .setStatus("Unknown")
                 .setSex("Male")
                 .setBloodType("A")
-                .setHeight(new HeightParser().parse("187 cm (6 ft 2 in)"))
-                .setBodyMass(new BodyMassParser().parse("102 kg (225 lb)"))
+                .setHeight(new ScrapedHeightParser().parse("187 cm (6 ft 2 in)"))
+                .setBodyMass(new ScrapedBodyMassParser().parse("102 kg (225 lb)"))
                 .setFirstAppearance("Resident Evil 3: Nemesis")
                 .setLastAppearance("Resident Evil: Resistance");
 

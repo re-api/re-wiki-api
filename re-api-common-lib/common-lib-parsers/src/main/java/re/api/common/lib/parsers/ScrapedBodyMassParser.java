@@ -1,12 +1,12 @@
-package rest.re.app.api.rest.scraper.converter.parsers;
+package re.api.common.lib.parsers;
 
 import common.lib.models.serializable.BodyMass;
-import rest.re.app.api.rest.scraper.converter.utils.MathUtils;
-import rest.re.app.api.rest.scraper.converter.utils.StringUtils;
+import re.api.common.lib.utils.MathUtils;
+import re.api.common.lib.utils.StringUtils;
 
 import java.util.Optional;
 
-public class BodyMassParser implements Parser<BodyMass>{
+public class ScrapedBodyMassParser implements Parser<BodyMass>{
 
     @Override
     public BodyMass parse(String string) {

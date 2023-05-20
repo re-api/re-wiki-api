@@ -2,7 +2,7 @@ package rest.re.app.api.rest.scraper.converter.processables;
 
 import org.javatuples.Pair;
 import org.jsoup.nodes.Document;
-import rest.re.app.api.rest.scraper.converter.utils.CharacterConverterUtils;
+import re.api.common.lib.utils.CharacterConverterUtils;
 
 import java.util.List;
 import java.util.Optional;

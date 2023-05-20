@@ -19,6 +19,8 @@
     <module>common-lib-models</module>
     <module>common-lib-queues</module>
     <module>crud-service</module>
+    <module>common-lib-parsers</module>
+    <module>common-lib-utils</module>
   </modules>
 
   <properties>

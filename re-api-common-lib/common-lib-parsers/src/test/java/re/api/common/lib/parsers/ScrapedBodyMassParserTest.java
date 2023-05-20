@@ -1,4 +1,4 @@
-package rest.re.app.api.rest.scraper.converter.parsers;
+package re.api.common.lib.parsers;
 
 import common.lib.models.serializable.BodyMass;
 import org.junit.jupiter.api.Assertions;
@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 
-class BodyMassParserTest {
+class ScrapedBodyMassParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -27,7 +27,7 @@ class BodyMassParserTest {
     })
     void kilogramTakingPrecedenceOverLb(final String bodyMass){
         Assertions.assertEquals(
-                new BodyMass().setKilogram("70.2").setPound("154.76"), new BodyMassParser().parse(bodyMass)
+                new BodyMass().setKilogram("70.2").setPound("154.76"), new ScrapedBodyMassParser().parse(bodyMass)
         );
     }
 
@@ -45,7 +45,7 @@ class BodyMassParserTest {
     })
     void calculatingKiloFromPoundWhenKiloIsNotSpecified(final String bodyMass){
         Assertions.assertEquals(
-                new BodyMass().setKilogram("70.31").setPound("155"), new BodyMassParser().parse(bodyMass)
+                new BodyMass().setKilogram("70.31").setPound("155"), new ScrapedBodyMassParser().parse(bodyMass)
         );
     }
 

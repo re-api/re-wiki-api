@@ -1,4 +1,4 @@
-package rest.re.app.api.rest.scraper.converter.parsers;
+package re.api.common.lib.parsers;
 
 import common.lib.models.serializable.Height;
 import org.junit.jupiter.api.Assertions;
@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 
-class HeightParserTest {
+class ScrapedHeightParserTest {
 
 
 
@@ -29,7 +29,7 @@ class HeightParserTest {
         // All string parameters above should be parsed into
         // Height ("187", "6.14")
 
-        final Height height= new HeightParser().parse(s);
+        final Height height= new ScrapedHeightParser().parse(s);
 
         Assertions.assertEquals(new Height().setCentimeters("187").setFeet("6.14"), height);
 
@@ -48,7 +48,7 @@ class HeightParserTest {
 
     })
     void shouldBaseCentimeterOnFeetIfCentimeterIsNotProvided(final String feet){
-        Assertions.assertEquals(new Height().setCentimeters("188").setFeet("6.17"), new HeightParser().parse(feet));
+        Assertions.assertEquals(new Height().setCentimeters("188").setFeet("6.17"), new ScrapedHeightParser().parse(feet));
     }
 
 }

@@ -1,4 +1,4 @@
-package rest.re.app.api.rest.scraper.converter.utils;
+package re.api.common.lib.utils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

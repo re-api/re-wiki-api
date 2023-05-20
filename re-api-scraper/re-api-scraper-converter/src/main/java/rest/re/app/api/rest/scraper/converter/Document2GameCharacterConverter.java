@@ -3,11 +3,11 @@ package rest.re.app.api.rest.scraper.converter;
 import common.lib.models.serializable.GameCharacter;
 import org.javatuples.Pair;
 import org.jsoup.nodes.Document;
-import rest.re.app.api.rest.scraper.converter.parsers.BodyMassParser;
-import rest.re.app.api.rest.scraper.converter.parsers.HeightParser;
 import rest.re.app.api.rest.scraper.converter.processables.CharacterPortableInfoBoxProcessable;
 import rest.re.app.api.rest.scraper.converter.processables.PortableInfoBoxProcessable;
-import rest.re.app.api.rest.scraper.converter.utils.CharacterConverterUtils;
+import re.api.common.lib.utils.CharacterConverterUtils;
+import re.api.common.lib.parsers.ScrapedHeightParser;
+import re.api.common.lib.parsers.ScrapedBodyMassParser;
 
 
 import java.util.Arrays;
@@ -173,7 +173,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
     public Pair<Document, GameCharacter> processHeight(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, height->
                 tuple.getValue1()
-                        .setHeight(new HeightParser().parse(height)),
+                        .setHeight(new ScrapedHeightParser().parse(height)),
                 "height");
     }
 
@@ -185,7 +185,7 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
     @Override
     public Pair<Document, GameCharacter> processBodyMass(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, bodyMass->
-                tuple.getValue1().setBodyMass(new BodyMassParser().parse(bodyMass)),
+                tuple.getValue1().setBodyMass(new ScrapedBodyMassParser().parse(bodyMass)),
                 "mass");
     }
 
