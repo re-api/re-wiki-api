@@ -11,6 +11,9 @@ spring:
     password: postgres
     driverClassName: org.postgresql.Driver
 
+  jackson:
+    default-property-inclusion: NON_NULL
+
   activemq:
     broker-url: tcp://localhost:61616
 
