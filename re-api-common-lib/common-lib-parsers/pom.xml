@@ -37,7 +37,7 @@
         </dependency>
         <dependency>
             <groupId>rest.re.app.api.rest.api</groupId>
-            <artifactId>re-api-rest-api</artifactId>
+            <artifactId>re-characters-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

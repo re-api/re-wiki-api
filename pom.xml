@@ -14,7 +14,8 @@
   <modules>
     <module>re-api-scraper</module>
     <module>re-api-common-lib</module>
-    <module>re-api-rest</module>
+    <module>re-characters</module>
+    <module>re-deployments</module>
   </modules>
 
 
