@@ -1,6 +1,5 @@
 package rest.re.app.api.rest.scraper.service.beanprocessors.properties;
 
-import common.lib.models.serializable.GameCharacter;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepInput;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput;
 import flow.steps.charactersfetchingstep.impl.ScraperCharactersFetchingStepImpl;
@@ -12,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import rest.re.app.api.rest.api.model.GameCharacter;
 import rest.re.app.api.rest.scraper.service.beanprocessors.Preparer;
 import rest.re.app.api.rest.scraper.service.exchangeproperties.ExchangeProp;
 

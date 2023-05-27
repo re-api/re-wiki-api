@@ -1,9 +1,6 @@
 package rest.re.app.api.rest.service.camelroutes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import common.lib.models.serializable.BodyMass;
-import common.lib.models.serializable.GameCharacter;
-import common.lib.models.serializable.Height;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.slf4j.Logger;
@@ -12,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import re.api.common.lib.CRUDService;
 import re.api.common.lib.QueueNames;
+import rest.re.app.api.rest.api.model.BodyMass;
+import rest.re.app.api.rest.api.model.GameCharacter;
+import rest.re.app.api.rest.api.model.Height;
 import rest.re.app.api.rest.service.models.CharacterServiceCharacter;
 
 import java.util.List;
@@ -64,8 +64,8 @@ public class ActiveMQListenerRouter extends RouteBuilder {
                                 .setPlaceOfDeath(gameCharacter.getPlaceOfDeath())
                                 .setRace(gameCharacter.getRace())
                                 .setOccupations(safeParseOccupation(gameCharacter.getOccupation()))
-                                .setStatus(gameCharacter.getStatus())
-                                .setSex(gameCharacter.getSex())
+                                .setStatus(gameCharacter.getStatus().toString())
+                                .setSex(gameCharacter.getSex().toString())
                                 .setBloodType(gameCharacter.getBloodType())
                                 .setHeight(safeParse(gameCharacter.getHeight()))
                                 .setBodyMass(safeParse(gameCharacter.getBodyMass()))

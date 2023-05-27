@@ -1,8 +1,8 @@
 package rest.re.app.api.rest.scraper.converter.processables;
 
-import common.lib.models.serializable.GameCharacter;
 import org.javatuples.Pair;
 import org.jsoup.nodes.Document;
+import rest.re.app.api.rest.api.model.GameCharacter;
 
 public interface CharacterPortableInfoBoxProcessable extends PortableInfoBoxProcessable {
 

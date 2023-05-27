@@ -1,8 +1,9 @@
 package rest.re.app.api.rest.scraper.service.exchangeproperties;
 
-import common.lib.models.serializable.GameCharacter;
+
 import org.apache.camel.Exchange;
 import org.springframework.stereotype.Component;
+import rest.re.app.api.rest.api.model.GameCharacter;
 
 import java.util.Iterator;
 import java.util.Optional;

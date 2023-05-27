@@ -2,12 +2,13 @@ package rest.re.app.api.rest.scraper.service.beanprocessors.messagebody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import common.lib.models.serializable.GameCharacter;
+
 import org.apache.camel.Exchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import rest.re.app.api.rest.api.model.GameCharacter;
 import rest.re.app.api.rest.scraper.service.beanprocessors.Preparer;
 import rest.re.app.api.rest.scraper.service.exchangeproperties.ExchangeProp;
 

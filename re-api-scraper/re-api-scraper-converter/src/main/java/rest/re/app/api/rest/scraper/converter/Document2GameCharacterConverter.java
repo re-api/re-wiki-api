@@ -1,8 +1,10 @@
 package rest.re.app.api.rest.scraper.converter;
 
-import common.lib.models.serializable.GameCharacter;
 import org.javatuples.Pair;
 import org.jsoup.nodes.Document;
+import re.api.common.lib.parsers.BodyMassFromDoubleParser;
+import re.api.common.lib.parsers.HeightFromIntegerParser;
+import rest.re.app.api.rest.api.model.GameCharacter;
 import rest.re.app.api.rest.scraper.converter.processables.CharacterPortableInfoBoxProcessable;
 import rest.re.app.api.rest.scraper.converter.processables.PortableInfoBoxProcessable;
 import re.api.common.lib.utils.CharacterConverterUtils;
@@ -141,7 +143,8 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
      */
     @Override
     public Pair<Document, GameCharacter> processStatus(final Pair<Document, GameCharacter> tuple) {
-        return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setStatus, "status");
+        return PortableInfoBoxProcessable.processInfoBox(tuple, string->tuple
+                .getValue1().setStatus(GameCharacter.StatusEnum.fromValue(string)), "status");
     }
 
     /**
@@ -151,7 +154,8 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
      */
     @Override
     public Pair<Document, GameCharacter> processSex(final Pair<Document, GameCharacter> tuple) {
-        return PortableInfoBoxProcessable.processInfoBox(tuple, tuple.getValue1()::setSex, "sex");
+        return PortableInfoBoxProcessable.processInfoBox(tuple, string->tuple
+                .getValue1().setSex(GameCharacter.SexEnum.fromValue(string)), "sex");
     }
 
     /**
@@ -173,7 +177,8 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
     public Pair<Document, GameCharacter> processHeight(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, height->
                 tuple.getValue1()
-                        .setHeight(new ScrapedHeightParser().parse(height)),
+                        .setHeight(new HeightFromIntegerParser().parse(new ScrapedHeightParser()
+                                .parse(height).getCentimeters())),
                 "height");
     }
 
@@ -185,7 +190,8 @@ public class Document2GameCharacterConverter implements Convertible<Document, Ga
     @Override
     public Pair<Document, GameCharacter> processBodyMass(final Pair<Document, GameCharacter> tuple) {
         return PortableInfoBoxProcessable.processInfoBox(tuple, bodyMass->
-                tuple.getValue1().setBodyMass(new ScrapedBodyMassParser().parse(bodyMass)),
+                tuple.getValue1().setBodyMass(new BodyMassFromDoubleParser().parse(new ScrapedBodyMassParser().parse(bodyMass)
+                        .getKilogram())),
                 "mass");
     }
 

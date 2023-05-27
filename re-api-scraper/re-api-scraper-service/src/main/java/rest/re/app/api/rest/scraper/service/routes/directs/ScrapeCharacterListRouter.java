@@ -1,11 +1,11 @@
 package rest.re.app.api.rest.scraper.service.routes.directs;
 
-import common.lib.models.serializable.GameCharacter;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import rest.re.app.api.rest.scraper.service.exchangeproperties.ExchangeProp;
 import rest.re.app.api.rest.scraper.service.beanprocessors.Preparer;
+import rest.re.app.api.rest.scraper.service.exchangeproperties.ExchangeProp;
+import rest.re.app.api.rest.api.model.GameCharacter;
 
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +29,7 @@ public class ScrapeCharacterListRouter extends RouteBuilder implements Nameable 
 
         from("direct:scrape-character-list")
                 .bean(listOfGameCharacterPreparerBean, "prepare")
-                .loopDoWhile(exchange-> gameCharactersIteratorExchangeProp.retrieveFrom(exchange).hasNext())
+                .loopDoWhile(exchange -> gameCharactersIteratorExchangeProp.retrieveFrom(exchange).hasNext())
                 .to(activeMqGameCharacterPrepareRouter.directName());
     }
 

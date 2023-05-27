@@ -1,13 +1,13 @@
 package flow.steps.charactersfetchingstep.impl;
 
 import common.lib.executableflowsteps.ExecutableFlowStep;
-import common.lib.models.serializable.GameCharacter;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepInput;
 import flow.steps.charactersfetchingstep.api.ScraperCharactersFetchingStepOutput;
 import io.reactivex.rxjava3.core.Single;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rest.re.app.api.rest.api.model.GameCharacter;
 import rest.re.app.api.rest.scraper.converter.Document2GameCharacterConverter;
 import rest.re.app.api.rest.scraper.wiki.ReScrapedWikiPage;
 
