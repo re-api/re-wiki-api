@@ -2,6 +2,7 @@ package rest.re.app.api.rest.service.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.Disposable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,8 @@ public class CharactersController implements CharactersApi {
         logger.info("Starting the CharactersController::findCharacters operation.");
         List<GameCharacter> gameCharacters = new ArrayList<>();
 
-        Single.fromCallable(() -> characterService.listAll())
-                .map(characterServiceCharacters -> {
-                    final List<GameCharacter> gCharacters = characterServiceCharacters.stream()
+        final Disposable disposable = Single.fromCallable(() -> characterService.listAll())
+                .map(characterServiceCharacters -> characterServiceCharacters.stream()
                             .map(characterServiceCharacter -> {
                                 final GameCharacter apiResponseGameCharacter = new GameCharacter();
                                 apiResponseGameCharacter.setId(characterServiceCharacter.getId());
@@ -74,15 +74,15 @@ public class CharactersController implements CharactersApi {
                                 gameCharacters.add(apiResponseGameCharacter);
 
                                 return apiResponseGameCharacter;
-                            }).collect(Collectors.toList());
-                    return gCharacters;
-                })
+                            }).collect(Collectors.toList())
+                )
                 .doOnError(e -> {
                     logger.error("An error occurred while trying to generate API response {}", e.toString());
                 })
                 .subscribe(apiResponseGameCharacter -> {
                     logger.trace("CharactersController::findCharacters operation. Value returned: {}", apiResponseGameCharacter);
                 });
+        disposable.dispose();
         return ResponseEntity.ok(gameCharacters);
     }
 
