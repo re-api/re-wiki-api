@@ -39,12 +39,6 @@
     <!-- End of test dependencies -->
 
     <dependency>
-      <groupId>common.lib.models</groupId>
-      <artifactId>common-lib-models</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
       <groupId>rest.re.app.scraper.wiki</groupId>
       <artifactId>re-api-scraper-wiki</artifactId>
       <version>1.0.0-SNAPSHOT</version>

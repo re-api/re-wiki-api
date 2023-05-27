@@ -92,12 +92,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>common.lib.models</groupId>
-            <artifactId>common-lib-models</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>io.reactivex.rxjava3</groupId>
             <artifactId>rxjava</artifactId>
             <version>${rxjava.version}</version>

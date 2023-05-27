@@ -1,13 +1,11 @@
 package rest.re.app.api.rest.scraper.converter;
 
-import common.lib.models.serializable.BodyMass;
 import io.reactivex.rxjava3.core.Single;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import re.api.common.lib.parsers.BodyMassFromDoubleParser;
-import re.api.common.lib.parsers.HeightFromIntegerParser;
 import re.api.common.lib.parsers.ScrapedHeightParser;
+import rest.re.app.api.rest.api.model.BodyMass;
 import rest.re.app.api.rest.api.model.GameCharacter;
 import rest.re.app.api.rest.scraper.wiki.ReScrapedWikiPage;
 
@@ -17,7 +15,7 @@ import java.util.Collections;
 class Document2GameCharacterConvertibleTest {
 
     @Test
-    void convertingLeonsHtmlContentIntoGameCharacterSchema(){
+    void convertingLeonsHtmlContentIntoGameCharacterSchema() {
         // Given Leon's HTML content:
         Single<Document> documentSingle = ReScrapedWikiPage.of("/wiki/Leon_Scott_Kennedy").scrape();
 
@@ -31,8 +29,12 @@ class Document2GameCharacterConvertibleTest {
         expectedCharacter.setStatus(GameCharacter.StatusEnum.fromValue("Alive"));
         expectedCharacter.setSex(GameCharacter.SexEnum.fromValue("Male"));
         expectedCharacter.setBloodType("A");
-        expectedCharacter.setHeight(new HeightFromIntegerParser().parse(new ScrapedHeightParser().parse("178 cm").getCentimeters()));
-        expectedCharacter.setBodyMass(new BodyMassFromDoubleParser().parse(new BodyMass().setKilogram("70.2").setPound("154.76").getKilogram()));
+        expectedCharacter.setHeight(new ScrapedHeightParser().parse("178 cm"));
+        final BodyMass bodyMass = new BodyMass();
+        bodyMass.setKilogram("70.2");
+        bodyMass.setPound("154.76");
+
+        expectedCharacter.setBodyMass(bodyMass);
         expectedCharacter.setFirstAppearance("Resident Evil 2 (1998)");
         expectedCharacter.setLastAppearance("Resident Evil: Death Island");
         // document
@@ -45,7 +47,7 @@ class Document2GameCharacterConvertibleTest {
     }
 
     @Test
-    void convertingHenricosHtmlContentIntoGameCharacterSchema(){
+    void convertingHenricosHtmlContentIntoGameCharacterSchema() {
         // Given Leon's HTML content:
         Single<Document> enricosPage = ReScrapedWikiPage.of("/wiki/Enrico_Marini").scrape();
 
@@ -60,8 +62,11 @@ class Document2GameCharacterConvertibleTest {
         expectedCharacter.setStatus(GameCharacter.StatusEnum.fromValue("Deceased"));
         expectedCharacter.setSex(GameCharacter.SexEnum.fromValue("Male"));
         expectedCharacter.setBloodType("O");
-        expectedCharacter.setHeight(new HeightFromIntegerParser().parse(new ScrapedHeightParser().parse("190 cm").getCentimeters()));
-        expectedCharacter.setBodyMass(new BodyMassFromDoubleParser().parse(new BodyMass().setKilogram("83").setPound("182.98").getKilogram()));
+        expectedCharacter.setHeight(new ScrapedHeightParser().parse("190 cm"));
+        final BodyMass bodyMass = new BodyMass();
+        bodyMass.setKilogram("83");
+        bodyMass.setPound("182.98");
+        expectedCharacter.setBodyMass(bodyMass);
         expectedCharacter.setFirstAppearance("Resident Evil (1996)");
         expectedCharacter.setLastAppearance("Resident Evil 0");
         // document
@@ -74,7 +79,7 @@ class Document2GameCharacterConvertibleTest {
     }
 
     @Test
-    void testingAGameCharacterWithPlaceOfBirth(){
+    void testingAGameCharacterWithPlaceOfBirth() {
         // Given Leon's HTML content:
         Single<Document> nikolaisPage = ReScrapedWikiPage.of("/wiki/Nikolai_Zinoviev").scrape();
 
@@ -89,8 +94,11 @@ class Document2GameCharacterConvertibleTest {
         expectedCharacter.setStatus(GameCharacter.StatusEnum.fromValue("Unknown"));
         expectedCharacter.setSex(GameCharacter.SexEnum.fromValue("Male"));
         expectedCharacter.setBloodType("A");
-        expectedCharacter.setHeight(new HeightFromIntegerParser().parse(new ScrapedHeightParser().parse("187 cm").getCentimeters()));
-        expectedCharacter.setBodyMass(new BodyMassFromDoubleParser().parse(new BodyMass().setKilogram("102").setPound("224.87").getKilogram()));
+        expectedCharacter.setHeight(new ScrapedHeightParser().parse("187 cm"));
+        final BodyMass bodyMass = new BodyMass();
+        bodyMass.setKilogram("102");
+        bodyMass.setPound("224.87");
+        expectedCharacter.setBodyMass(bodyMass);
         expectedCharacter.setFirstAppearance("Resident Evil 3: Nemesis");
         expectedCharacter.setLastAppearance("Resident Evil: Resistance");
         // document

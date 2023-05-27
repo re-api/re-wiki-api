@@ -1,24 +1,23 @@
 package re.api.common.lib.parsers;
 
-import common.lib.models.serializable.Height;
 import re.api.common.lib.utils.MathUtils;
 import re.api.common.lib.utils.StringUtils;
-
+import rest.re.app.api.rest.api.model.Height;
 
 import java.util.Optional;
 
-public class ScrapedHeightParser implements Parser<Height>{
+public class ScrapedHeightParser implements Parser<Height> {
     @Override
     public Height parse(String string) {
         return Optional.ofNullable(string)
                 .map(String::trim)
-                .map(s->{
+                .map(s -> {
                     final String matchedCm = StringUtils.matchCentimeter(s);
-                    if(matchedCm.length() > 0){
+                    if (matchedCm.length() > 0) {
                         return parseWhenCentimeterMatched(s);
-                    }else if(StringUtils.matchFeet(s).length() > 0){
+                    } else if (StringUtils.matchFeet(s).length() > 0) {
                         return parseWhenFeetMatched(s);
-                    }else {
+                    } else {
                         return new Height();
                     }
                 })
@@ -35,22 +34,27 @@ public class ScrapedHeightParser implements Parser<Height>{
 
         final Double resultFeetValue = feetDouble + inchDouble;
 
-        return new Height()
-                .setCentimeters(MathUtils.formatToInteger(MathUtils.convertFeetToCentimeter(resultFeetValue)))
-                .setFeet(MathUtils.formatDoubleTo2DecimalPlace(resultFeetValue));
+        final Height height = new Height();
+        height.setCentimeters(MathUtils.formatToInteger(MathUtils.convertFeetToCentimeter(resultFeetValue)));
+        height.setFeet(MathUtils.formatDoubleTo2DecimalPlace(resultFeetValue));
+
+        return height;
     }
 
-    private Height parseWhenCentimeterMatched(String cm){
+    private Height parseWhenCentimeterMatched(String cm) {
         final String matchedCentimeter = StringUtils.matchCentimeter(cm);
         final Integer centimeter = Integer
                 .parseInt(matchedCentimeter.replace("cm", "").trim());
         final Double feet = MathUtils.convertCentimetersToFeet(centimeter);
-        return new Height()
-                .setCentimeters(centimeter.toString())
-                .setFeet(MathUtils.formatDoubleTo2DecimalPlace(feet));
+
+        final Height height = new Height();
+        height.setCentimeters(centimeter.toString());
+        height.setFeet(MathUtils.formatDoubleTo2DecimalPlace(feet));
+
+        return height;
     }
 
-    private String removeTagFeet(final String feetString){
+    private String removeTagFeet(final String feetString) {
         return feetString
                 .replace("ft", "")
                 .replace("in", "")

@@ -1,9 +1,9 @@
 package re.api.common.lib.parsers;
 
-import common.lib.models.serializable.Height;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import rest.re.app.api.rest.api.model.Height;
 
 
 class ScrapedHeightParserTest {
@@ -30,8 +30,11 @@ class ScrapedHeightParserTest {
         // Height ("187", "6.14")
 
         final Height height= new ScrapedHeightParser().parse(s);
+        final Height expectedHeight = new Height();
+        expectedHeight.setCentimeters("187");
+        expectedHeight.setFeet("6.14");
 
-        Assertions.assertEquals(new Height().setCentimeters("187").setFeet("6.14"), height);
+        Assertions.assertEquals(expectedHeight, height);
 
     }
 
@@ -48,7 +51,10 @@ class ScrapedHeightParserTest {
 
     })
     void shouldBaseCentimeterOnFeetIfCentimeterIsNotProvided(final String feet){
-        Assertions.assertEquals(new Height().setCentimeters("188").setFeet("6.17"), new ScrapedHeightParser().parse(feet));
+        final Height expectedHeight = new Height();
+        expectedHeight.setCentimeters("188");
+        expectedHeight.setFeet("6.17");
+        Assertions.assertEquals(expectedHeight, new ScrapedHeightParser().parse(feet));
     }
 
 }

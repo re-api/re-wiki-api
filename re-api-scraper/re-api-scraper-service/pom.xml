@@ -101,11 +101,6 @@
       <version>${log4j.version}</version>
     </dependency>
     <dependency>
-      <groupId>common.lib.models</groupId>
-      <artifactId>common-lib-models</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>flow.steps.listgameurlfetchingstep.impl</groupId>
       <artifactId>list-game-url-fetching-step-impl</artifactId>
       <version>1.0.0-SNAPSHOT</version>
